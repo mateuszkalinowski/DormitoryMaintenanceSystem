@@ -1,0 +1,4 @@
+/*@import "~materialize-css/dist/css/materializecustom.css";*/
+.pagination {
+  justify-content: center;
+}

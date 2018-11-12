@@ -1,0 +1,54 @@
+<!--<link rel="stylesheet" href="src/styles.css">-->
+<div class="row">
+  <div class="col-6 text-center mx-auto mt-2">
+    <h4>Lista zgłoszeń:</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-10 text-center mx-auto">
+    <div>
+      <h5 *ngIf="numberOfPages === 0">
+        Lista zgłoszeń jest pusta. Aby dodać zgłoszenie wybierz z menu górnego Zgłoszenia->Nowe zgłoszenie.
+      </h5>
+      <table *ngIf="numberOfPages > 0" class="w-100 table-hover table" border="1">
+        <thead class="thead-dark">
+        <tr>
+          <th>Tytuł</th>
+          <th>Kategoria</th>
+          <th>Zgłoszono</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let record of requests">
+          <td>{{record.title}}</td>
+          <td>{{record.categoryName}}</td>
+          <td>{{record.time}}</td>
+          <td>
+            <button class="btn-dark" routerLink="/inhabitantPage/requests/{{record.id}}">Szczegóły</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s10 offset-s1 center-align">
+    <ul *ngIf="numberOfPages > 1" class="pagination">
+      <li *ngIf="activePage>0" class="waves-effect"><a (click)="showPage(activePage-1)"><i class="material-icons">chevron_left</i></a>
+      </li>
+      <li *ngIf="activePage === 0" class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+      <li *ngFor="let page of paginationInfo.pagesBeforeActive" class="waves-effect"><a (click)="showPage(page)">{{page+1}}</a>
+      </li>
+      <li class="active blue-grey"><a (click)="showPage(activePage)">{{activePage+1}}</a></li>
+      <li *ngFor="let page of paginationInfo.pagesAfterActive" class="waves-effect"><a (click)="showPage(page)">{{page+1}}</a>
+      </li>
+      <li *ngIf="activePage<numberOfPages-1" class="waves-effect"><a (click)="showPage(activePage+1)"><i
+        class="material-icons">chevron_right</i></a></li>
+      <li *ngIf="activePage === numberOfPages-1" class="disabled"><a><i class="material-icons">chevron_right</i></a>
+      </li>
+    </ul>
+  </div>
+</div>

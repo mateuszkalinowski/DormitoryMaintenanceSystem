@@ -1,0 +1,74 @@
+ <div class="row mt-3">
+      <div class="col-7 mx-auto text-center">
+        <h4>Wybrane zgłoszenie:</h4>
+        <table class="w-100 table mt-3">
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">title</i>
+            </td>
+            <td>
+              Tytuł:
+            </td>
+            <td>
+              {{request.title}}
+            </td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">category</i>
+            </td>
+            <td>
+              Kategoria:
+            </td>
+            <td>
+              {{request.category}}
+            </td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">date_range</i>
+            </td>
+            <td>
+              Opublikowano:
+            </td>
+            <td>
+              {{request.timeStamp}}
+            </td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">insert_comment</i>
+            </td>
+            <td>
+              Komentarz:
+            </td>
+            <td>
+              {{request.comment}}
+            </td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">bookmark</i>
+            </td>
+            <td>
+              Status:
+            </td>
+            <td>
+              {{request.status}}
+            </td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <i class="material-icons prefix">subject</i>
+            </td>
+            <td>
+              Treść:
+            </td>
+            <td>
+              <p>{{request.content}}</p>
+            </td>
+          </tr>
+        </table>
+        <button (click)="removeRequest()" class="btn btn-danger mt-2">Usuń</button>
+      </div>
+    </div>

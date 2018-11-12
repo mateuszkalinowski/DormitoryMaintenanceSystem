@@ -1,0 +1,27 @@
+spring:
+#  datasource:
+#    url: jdbc:h2:mem:app
+#    username: sa
+#    password:
+#    platform: h2
+  datasource:
+    url: jdbc:mysql://azimuthapp.pl:3306/dmsbazodanowe?useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: Very.Strong.Password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      use-new-id-generator-mappings: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  h2:
+    console:
+      path: /console
+      enabled: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout: 60m
+server:
+  port: 8090
