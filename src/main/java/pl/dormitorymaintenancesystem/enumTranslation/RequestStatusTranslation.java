@@ -1,17 +1,17 @@
 package pl.dormitorymaintenancesystem.enumTranslation;
 
-import pl.dormitorymaintenancesystem.enums.RequestStatusEnum;
+import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 
 public class RequestStatusTranslation {
 
-    public static String translateRequestStatus(RequestStatusEnum requestStatusEnum) {
-        if(requestStatusEnum.equals(RequestStatusEnum.REQUEST_WAITING))
+    public static String translateRequestStatus(TaskStatusEnum taskStatusEnum) {
+        if(taskStatusEnum.equals(TaskStatusEnum.REQUEST_WAITING))
             return "Oczekujące";
-        else if(requestStatusEnum.equals(RequestStatusEnum.REQUEST_FINISHED))
+        else if(taskStatusEnum.equals(TaskStatusEnum.REQUEST_FINISHED))
             return "Zakończone";
-        else if(requestStatusEnum.equals(RequestStatusEnum.REQUEST_IN_PROGRESS))
+        else if(taskStatusEnum.equals(TaskStatusEnum.REQUEST_IN_PROGRESS))
             return "W toku";
-        else if(requestStatusEnum.equals(RequestStatusEnum.REQUEST_REJECTED))
+        else if(taskStatusEnum.equals(TaskStatusEnum.REQUEST_REJECTED))
             return "Odrzucone";
         else
             return "Stan nieznany";

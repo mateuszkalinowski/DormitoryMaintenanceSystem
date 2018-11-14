@@ -1,0 +1,24 @@
+<!--<link rel="stylesheet" href="src/styles.css">-->
+<div class="row mt-3">
+  <div class="col-8 mx-auto text-center">
+    <div class="card">
+      <form class="form-inline mx-2">
+        <div class="card-header w-100"><h2>Nowe ogłoszenie</h2></div>
+        <label for="topic" class="w-100 mt-4"><b>Temat:</b></label>
+        <input type="text" class="form-control w-75 mt-4 mx-auto" id="topic" [(ngModel)]="newAnnouncement.title" name="topic" style="text-align: center"/>
+
+        <label for="content" class="w-100 mt-4"><b>Treść:</b></label>
+        <textarea rows="8" class="form-control w-75 mx-auto mt-4 mb-4" id="content" [(ngModel)]="newAnnouncement.content" name="content"></textarea>
+        <div class="mx-auto my-2 w-100">
+          <h6 *ngIf="resultType === true" class="text-success">{{message}}</h6>
+          <h6 *ngIf="resultType === false" class="text-danger">{{message}}</h6>
+        </div>
+        <div class="card-footer w-100">
+          <button class="btn btn-dark" (click)="send()" type="submit">Opublikuj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

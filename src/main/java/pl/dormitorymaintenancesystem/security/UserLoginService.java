@@ -1,4 +1,4 @@
-package pl.dormitorymaintenancesystem.config.security;
+package pl.dormitorymaintenancesystem.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

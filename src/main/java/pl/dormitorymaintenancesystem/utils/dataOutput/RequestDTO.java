@@ -22,7 +22,9 @@ public class RequestDTO implements Comparable<RequestDTO> {
 
     private String status;
 
-    public RequestDTO(Long id, String title, String content, LocalDateTime time, String comment, String categoryName, String status) {
+    private String assignedTo;
+
+    public RequestDTO(Long id, String title, String content, LocalDateTime time, String comment, String categoryName, String status, String assignedTo) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -30,6 +32,7 @@ public class RequestDTO implements Comparable<RequestDTO> {
         this.comment = comment;
         this.categoryName = categoryName;
         this.status = status;
+        this.assignedTo = assignedTo;
     }
 
     @Override

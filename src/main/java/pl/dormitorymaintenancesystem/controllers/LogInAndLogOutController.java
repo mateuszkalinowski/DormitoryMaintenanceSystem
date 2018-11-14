@@ -90,6 +90,7 @@ public class LogInAndLogOutController {
                 workerToReturn.put("email",worker.getEmail());
                 workerToReturn.put("roles",worker.getUserRoles());
                 workerToReturn.put("phoneNumber",worker.getPhoneNumber());
+                workerToReturn.put("contactEmail",worker.getContactEmail());
 
                 return ResponseEntity.ok().body(workerToReturn);
 

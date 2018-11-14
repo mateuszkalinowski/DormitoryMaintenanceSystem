@@ -36,25 +36,6 @@ export class InhabitantSettingsPageComponent implements OnInit {
     this.surname = this.currentUser.lastname;
     this.emailAddress = this.currentUser.email;
 
-    // $('#navigationNews').removeClass();
-    // $('#navigationNewRequest').removeClass();
-    // $('#navigationRequests').removeClass();
-    // $('#navigationSettings').removeClass();
-    //
-    // $('#navigationNews').addClass('collection-item');
-    // $('#navigationNews').addClass('black-text');
-    // $('#navigationNewRequest').addClass('collection-item');
-    // $('#navigationNewRequest').addClass('black-text');
-    // $('#navigationRequests').addClass('collection-item');
-    // $('#navigationRequests').addClass('black-text');
-    // $('#navigationSettings').addClass('collection-item');
-    // $('#navigationSettings').addClass('black-text');
-    //
-    // $('#navigationSettings').addClass('blue-grey');
-    // $('#navigationSettings').addClass('active');
-    // $('#navigationSettings').removeClass('black-text');
-
-
     this.apiService.callApi('api/info', 'GET', null, this.currentUser.token)
       .then( loggedInUser => {
           this.currentUser.firstname = loggedInUser.firstname;
@@ -64,6 +45,11 @@ export class InhabitantSettingsPageComponent implements OnInit {
     }
 
     changePassword() {
+      if (this.passwordChangeData.newPassword === undefined || this.passwordChangeData.oldPassword === undefined ||
+        this.passwordRepeat === undefined) {
+        this.message = 'Wypełnij wszystkie pola';
+        return;
+      }
       if (this.passwordRepeat === this.passwordChangeData.newPassword) {
           this.apiService.callApi('api/password', 'PUT', this.passwordChangeData, this.currentUser.token).then(
             data => {
@@ -73,7 +59,7 @@ export class InhabitantSettingsPageComponent implements OnInit {
             data => {
               this.message = 'Podczas zmiany hasła wystąpił błąd';
             }
-          )
+          );
       } else {
         this.message = 'Wprowadzone nowe hasła nie zgadzają się';
       }

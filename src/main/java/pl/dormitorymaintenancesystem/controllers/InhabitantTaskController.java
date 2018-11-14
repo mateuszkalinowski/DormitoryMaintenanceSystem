@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.enumTranslation.RequestStatusTranslation;
-import pl.dormitorymaintenancesystem.enums.RequestStatusEnum;
+import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 import pl.dormitorymaintenancesystem.model.Task;
 import pl.dormitorymaintenancesystem.model.users.Inhabitant;
 import pl.dormitorymaintenancesystem.model.users.User;
@@ -53,7 +53,7 @@ public class InhabitantTaskController {
             Task task = new Task();
             task.setInhabitant(inhabitant);
             task.setCategory(categoryRepository.getTopByCategory(newRequestDTO.getCategory()));
-            task.setStatus(RequestStatusEnum.REQUEST_WAITING);
+            task.setStatus(TaskStatusEnum.REQUEST_WAITING);
             task.setContent(newRequestDTO.getDescription());
             task.setTitle(newRequestDTO.getTitle());
             task.setComment("");
@@ -98,7 +98,10 @@ public class InhabitantTaskController {
             List<RequestDTO> requestDTOList = new ArrayList<>();
 
             for (Task task : inhabitant.getTaskList()) {
-                requestDTOList.add(new RequestDTO(task.getId(), task.getTitle(), task.getContent(), task.getTimeStamp(), task.getComment(), task.getCategory().getCategory(), task.getStatus().name()));
+                String assignedTo = "";
+                if(task.getWorker()!=null)
+                    assignedTo = task.getWorker().getContactEmail();
+                requestDTOList.add(new RequestDTO(task.getId(), task.getTitle(), task.getContent(), task.getTimeStamp(), task.getComment(), task.getCategory().getCategory(), task.getStatus().name(),assignedTo));
             }
 
             return ResponseEntity.ok().body(Page.createPage(page, size,requestDTOList));
@@ -123,6 +126,10 @@ public class InhabitantTaskController {
         taskMap.put("content",task.getContent());
         taskMap.put("category",task.getCategory().getCategory());
         taskMap.put("status", RequestStatusTranslation.translateRequestStatus(task.getStatus()));
+        String assignedTo = "";
+        if(task.getWorker()!=null)
+            assignedTo = task.getWorker().getContactEmail();
+        taskMap.put("assignedTo",assignedTo);
 
         return ResponseEntity.ok(taskMap);
     }

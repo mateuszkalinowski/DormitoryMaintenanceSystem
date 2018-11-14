@@ -1,6 +1,6 @@
 <!--<link rel="stylesheet" href="src/styles.css">-->
 <div class="row">
-  <div class="col-6 text-center mx-auto mt-2">
+  <div class="col-6 text-center mx-auto mt-2 mb-2">
     <h4>Lista zgłoszeń:</h4>
   </div>
 </div>
@@ -16,6 +16,7 @@
           <th>Tytuł</th>
           <th>Kategoria</th>
           <th>Zgłoszono</th>
+          <th>Podjęte przez</th>
           <th></th>
         </tr>
         </thead>
@@ -25,8 +26,10 @@
           <td>{{record.title}}</td>
           <td>{{record.categoryName}}</td>
           <td>{{record.time}}</td>
+          <td *ngIf="record.assignedTo === ''"> - </td>
+          <td *ngIf="record.assignedTo !== ''">{{record.assignedTo}}</td>
           <td>
-            <button class="btn-dark" routerLink="/inhabitantPage/requests/{{record.id}}">Szczegóły</button>
+            <button class="btn btn-dark" routerLink="/inhabitantPage/requests/{{record.id}}">Szczegóły</button>
           </td>
         </tr>
         </tbody>

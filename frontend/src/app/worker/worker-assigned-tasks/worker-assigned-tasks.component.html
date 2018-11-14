@@ -1,15 +1,15 @@
 <div class="row mt-3">
   <div class="col-10 mx-auto text-center">
-    <h2>Niepodjęte jeszcze zgłoszenia:</h2>
+    <h2>Przypisane do Ciebie zgłoszenia:</h2>
 
     <div class="card my-3" *ngFor="let record of requests">
       <div class="card-header">
         <div class="row">
           <div class="col-3">
-
+            <h4><span class="badge badge-secondary">{{record.status}}</span></h4>
           </div>
           <div class="col-6">
-        <h5>Nadawca: {{record.senderFirstName}} {{record.senderLastName}}</h5>
+            <h5>Nadawca: {{record.senderFirstName}} {{record.senderLastName}}</h5>
           </div>
           <div class="col-3">
             <h4><span class="badge badge-secondary">{{record.category}}</span></h4>
@@ -20,7 +20,9 @@
         <h3>{{record.title}}</h3>
         <h4>{{record.content}}</h4>
 
-        <button class="btn btn-dark" (click)="takeTask(record.id)">Podejmij</button>
+        <button class="btn btn-dark" routerLink="/workerPage/taskDetails/{{record.id}}">Szczegóły</button>
+
+
       </div>
       <div class="card-footer text-muted">
         <p>Zgłoszono: {{record.timeStamp}}</p>
@@ -29,7 +31,7 @@
     </div>
 
     <div class="mt-3" *ngIf="numberOfPages === 0">
-      <h4>Nie ma żadnych niepodjętych zgłoszeń</h4>
+      <h4>Nie przypisałeś sobie jeszcze żadnych zgłoszeń</h4>
     </div>
 
   </div>
@@ -39,11 +41,17 @@
     <nav *ngIf="numberOfPages > 1">
       <ul class="pagination">
         <li *ngIf="activePage === 0" class="page-item disabled"><a class="page-link">Poprzednia</a></li>
-        <li *ngIf="activePage>0" class="page-item"><a class="page-link" (click)="showPage(activePage-1)">Poprzednia</a></li>
-        <li *ngFor="let page of paginationInfo.pagesBeforeActive" class="page-item"><a class="page-link" (click)="showPage(page)" href="#">{{page+1}}</a></li>
+        <li *ngIf="activePage>0" class="page-item"><a class="page-link" (click)="showPage(activePage-1)">Poprzednia</a>
+        </li>
+        <li *ngFor="let page of paginationInfo.pagesBeforeActive" class="page-item"><a class="page-link"
+                                                                                       (click)="showPage(page)"
+                                                                                       href="#">{{page+1}}</a></li>
         <li class="page-item active"><a class="page-link" (click)="showPage(activePage)">{{activePage+1}}</a></li>
-        <li *ngFor="let page of paginationInfo.pagesAfterActive" class="page-item"><a class="page-link" (click)="showPage(page)">{{page+1}}</a></li>
-        <li *ngIf="activePage<numberOfPages-1" class="page-item"><a class="page-link" (click)="showPage(activePage+1)">Następna</a></li>
+        <li *ngFor="let page of paginationInfo.pagesAfterActive" class="page-item"><a class="page-link"
+                                                                                      (click)="showPage(page)">{{page+1}}</a>
+        </li>
+        <li *ngIf="activePage<numberOfPages-1" class="page-item"><a class="page-link" (click)="showPage(activePage+1)">Następna</a>
+        </li>
         <li *ngIf="activePage === numberOfPages-1" class="page-item disabled"><a class="page-link">Następna</a></li>
       </ul>
     </nav>

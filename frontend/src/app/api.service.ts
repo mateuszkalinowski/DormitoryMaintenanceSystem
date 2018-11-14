@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ResponseContentType} from '@angular/http';
-import {HttpHeaders, HttpRequest} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CurrentUserService} from './current-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +33,12 @@ export class ApiService {
         .catch(() => ({json: {}, response}))
       )
       .then(({json, response}) => {
-        //  console.log(response.status);
-        //  console.log(response.statusText);
 
+        if (response.status === 403 && json.message === 'Access Denied') {
+           // this.callApi('api/logout', 'GET', null, this.currentUser.token);
+           this.currentUser.remove();
+           this.router.navigate(['/']);
+        }
 
         if (!response.ok) {
           const message = json && json.message ? json.message : 'Nieoczekiwany problem z serwerem, spróbuj ponownie później';
@@ -47,13 +50,11 @@ export class ApiService {
 
   }
 
-  testFunction(num: number, num2: number) {
-    num = num + 10;
-    num2 = num2 + 15;
-
-    return [num, num2];
-  }
-
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private currentUser: CurrentUserService,
+    private router: Router
+  ) {
   }
 }

@@ -17,6 +17,11 @@ import {InhabitantRequestsPageComponent} from './inhabitant/inhabitant-requests-
 import {InhabitantSettingsPageComponent} from './inhabitant/inhabitant-settings-page/inhabitant-settings-page.component';
 import {InhabitantRequestDetailsComponent} from './inhabitant/inhabitant-request-details/inhabitant-request-details.component';
 import {WorkerWaitingTasksComponent} from './worker/worker-waiting-tasks/worker-waiting-tasks.component';
+import {WorkerAssignedTasksComponent} from './worker/worker-assigned-tasks/worker-assigned-tasks.component';
+import {WorkerTaskDetailsComponent} from './worker/worker-task-details/worker-task-details.component';
+import {WorkerSettingsPageComponent} from './worker/worker-settings-page/worker-settings-page.component';
+import {WorkerNewAnnouncementPageComponent} from './worker/worker-new-announcement-page/worker-new-announcement-page.component';
+import {WorkerOwnAnnouncementsPageComponent} from './worker/worker-own-announcements-page/worker-own-announcements-page.component';
 
 const routes: Routes = [
   { path: '', component: LogInComponent, canActivate: [AppEntranceGuardService] },
@@ -32,9 +37,13 @@ const routes: Routes = [
       { path: 'requests/:id', component: InhabitantRequestDetailsComponent },
     ]},
   { path: 'workerPage', component: WorkerPageComponent, canActivate: [WorkerPageGuardService],
-
     children: [
       {path: 'waitingTasks', component: WorkerWaitingTasksComponent },
+      {path: 'assignedTasks', component: WorkerAssignedTasksComponent},
+      {path: 'taskDetails/:id', component: WorkerTaskDetailsComponent},
+      {path: 'settings', component: WorkerSettingsPageComponent},
+      {path: 'newAnnouncement', component: WorkerNewAnnouncementPageComponent},
+      {path: 'myAnnouncements', component: WorkerOwnAnnouncementsPageComponent}
     ]},
   { path: 'adminPage', component: AdminPageComponent, canActivate: [AdminPageGuardService]},
 ];

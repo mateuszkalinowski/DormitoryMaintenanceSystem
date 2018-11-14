@@ -1,4 +1,4 @@
-package pl.dormitorymaintenancesystem.config.security;
+package pl.dormitorymaintenancesystem.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

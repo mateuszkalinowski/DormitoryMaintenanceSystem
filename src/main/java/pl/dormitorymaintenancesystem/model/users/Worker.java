@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "Worker")
 @NoArgsConstructor
-public class Worker extends User implements Serializable {
+public class Worker extends Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,6 @@ public class Worker extends User implements Serializable {
     public Worker(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
-    List<Message> messageList = new ArrayList<>();
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable( name = "Worker_Category",

@@ -8,11 +8,6 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Administrator extends User {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Administrator extends Employee {
 
-    private String contactEmail;
-    private String phoneNumber;
 }

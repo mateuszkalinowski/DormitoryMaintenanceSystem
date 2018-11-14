@@ -3,7 +3,7 @@ package pl.dormitorymaintenancesystem.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import pl.dormitorymaintenancesystem.enums.RequestStatusEnum;
+import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 import pl.dormitorymaintenancesystem.model.users.Inhabitant;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 
@@ -24,7 +24,7 @@ public class Task implements Serializable {
     private Inhabitant inhabitant;
 
     @Enumerated(EnumType.STRING)
-    private RequestStatusEnum status;
+    private TaskStatusEnum status;
 
     private String title;
 
@@ -45,3 +45,4 @@ public class Task implements Serializable {
     private Worker worker;
 
 }
+

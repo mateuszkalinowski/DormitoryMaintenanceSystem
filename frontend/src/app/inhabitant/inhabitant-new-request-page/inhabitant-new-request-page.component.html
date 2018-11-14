@@ -1,67 +1,24 @@
 <!--<link rel="stylesheet" href="src/styles.css">-->
 <div class="row mt-3">
-  <div class="col-6 mx-auto text-center">
+  <div class="col-8 mx-auto text-center">
     <div class="card">
-      <div class="form-inline">
+      <form class="form-inline mx-2">
         <div class="card-header w-100"><h2>Nowe zgłoszenie</h2></div>
         <label for="topic" class="w-50 mt-4"><b>Temat:</b></label>
-        <input type="text" class="form-control w-50 mt-4" id="topic" [(ngModel)]="newRequest.title"/>
+        <input type="text" class="form-control w-50 mt-4" id="topic" [(ngModel)]="newRequest.title" name="topic"/>
         <label for="category" class="w-50 mt-4"><b>Kategoria:</b></label>
         <select id="category" #selectedCategory class="form-control w-50 mt-4">
           <option *ngFor="let category of categories" value=category>{{category}}</option>
         </select>
         <label for="content" class="w-50 mt-4"><b>Treść:</b></label>
-        <textarea rows="4" class="form-control w-50 mt-4 mb-4" id="content" [(ngModel)]="newRequest.description"></textarea>
+        <textarea rows="4" class="form-control w-50 mt-4 mb-4" id="content" [(ngModel)]="newRequest.description" name="content"></textarea>
         <div class="card-footer w-100">
-          <button class="btn blue-grey" (click)="send(selectedCategory.selectedIndex)">Wyślij</button>
+          <button class="btn btn-dark" (click)="send(selectedCategory.selectedIndex)" type="submit">Wyślij</button>
         </div>
-      </div>
+      </form>
     </div>
     <p class="text-danger">{{message}}</p>
   </div>
 </div>
 
-
-
-
-
-<!--<div class="row">-->
-  <!--<div class="input-field col s6 offset-s3">-->
-    <!--<i class="material-icons prefix">title</i>-->
-    <!--<label for="title">Tytuł zgłoszenia</label>-->
-    <!--<input [(ngModel)]="newRequest.title" id="title" name="first_name" type="text" class="validate" data-length="50">-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-  <!--<div class="input-field col s3 offset-s3">-->
-    <!--<label style="margin-left: 40px">Kategoria zgłoszenia</label>-->
-    <!--<i class="material-icons prefix">category</i>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;<div class="input-field col s3">&ndash;&gt;-->
-    <!--&lt;!&ndash;<select id="category" #selectedCategory class="browser-default">&ndash;&gt;-->
-      <!--&lt;!&ndash;<option *ngFor="let category of categories" value=category>{{category}}</option>&ndash;&gt;-->
-    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--</div>-->
-<!--<div class="row">-->
-  <!--<div class="input-field col s6 offset-s3">-->
-    <!--<i class="material-icons prefix">subject</i>-->
-    <!--<label for="textarea">Opis problemu</label>-->
-    <!--<textarea [(ngModel)]="newRequest.description" id="textarea" class="materialize-textarea"-->
-              <!--data-length="500"></textarea>-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-  <!--<div class="input-field col s6 offset-s3 center-align">-->
-    <!--<div class="row">-->
-      <!--{{message}}-->
-    <!--</div>-->
-    <!--<button class="btn blue-grey" (click)="send(selectedCategory.selectedIndex)">Wyślij-->
-      <!--<i class="material-icons right">send</i></button>-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-  <!--<div class="cos s8 offset-s1 center-align">-->
-  <!--</div>-->
-<!--</div>-->
 

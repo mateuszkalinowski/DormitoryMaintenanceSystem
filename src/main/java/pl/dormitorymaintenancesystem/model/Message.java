@@ -3,6 +3,7 @@ package pl.dormitorymaintenancesystem.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import pl.dormitorymaintenancesystem.model.users.Employee;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 
 import javax.persistence.*;
@@ -29,14 +30,14 @@ public class Message implements Serializable, Comparable<Message> {
 
     @ManyToOne
     @JoinColumn(name="sender_id")
-    private Worker sender;
+    private Employee sender;
 
     @Override
     public int compareTo(Message o) {
         return this.timeStamp.compareTo(o.timeStamp);
     }
 
-    public Message(String title, String content, Worker sender) {
+    public Message(String title, String content, Employee sender) {
         this.title = title;
         this.content = content;
         this.sender = sender;

@@ -13,8 +13,20 @@
           <a class="nav-link" routerLink="/workerPage/waitingTasks">Zgłoszenia</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/workerPage/myTasks">Moje zgłoszenia</a>
+          <a class="nav-link" routerLink="/workerPage/assignedTasks">Moje zgłoszenia</a>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Ogłoszenia
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/workerPage/newAnnouncement">Nowe ogłoszenie</a>
+            <a class="dropdown-item" routerLink="/workerPage/myAnnouncements">Moje ogłoszenia</a>
+          </div>
+        </li>
+
         <li class="nav-item active">
           <a class="nav-link" routerLink="/workerPage/settings">Ustawienia</a>
         </li>
