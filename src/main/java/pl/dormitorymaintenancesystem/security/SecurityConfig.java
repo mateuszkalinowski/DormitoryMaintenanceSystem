@@ -1,5 +1,6 @@
 package pl.dormitorymaintenancesystem.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -35,6 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Bean
     public UserDetailsService customUserDetailsService() {
         return new UserLoginService();
+    }
+
+    @Autowired
+    private UserAuthenticationProvider userAuthenticationProvider;
+
+    public SecurityConfig(UserAuthenticationProvider userAuthenticationProvider) {
+        new UserAuthenticationProvider();
     }
 
 

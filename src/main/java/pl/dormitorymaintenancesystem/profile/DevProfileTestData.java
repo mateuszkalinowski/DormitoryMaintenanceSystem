@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import pl.dormitorymaintenancesystem.enums.DormitoryNameEnum;
 import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 import pl.dormitorymaintenancesystem.enums.UserRoleEnum;
+import pl.dormitorymaintenancesystem.enums.UserStatusEnum;
 import pl.dormitorymaintenancesystem.model.*;
 import pl.dormitorymaintenancesystem.model.users.Inhabitant;
 import pl.dormitorymaintenancesystem.model.users.Worker;
@@ -57,17 +58,10 @@ public class DevProfileTestData implements CommandLineRunner {
 
         Inhabitant user = new Inhabitant("student@local",passwordEncoder.encode("password"),"Jan","Kowalski",new UserRole(UserRoleEnum.INHABITANT));
         user.setRoom(room);
+        user.setUserStatus(UserStatusEnum.ACCEPTED);
         inhabitantRepository.save(user);
 
-        Worker user2 = new Worker("worker@local",passwordEncoder.encode("password"),"Zbigniew","Nowak",new UserRole(UserRoleEnum.WORKER),"505404303");
-        workerRepository.save(user2);
-
-        Inhabitant user3 = new Inhabitant("student2@local",passwordEncoder.encode("password"),"Michał","Gornolewski",new UserRole(UserRoleEnum.INHABITANT));
-        user3.setRoom(room);
-        userRepository.save(user3);
-
         room.getInhabitantList().add(user);
-        room.getInhabitantList().add(user3);
 
         roomRepository.save(room);
 
@@ -77,17 +71,10 @@ public class DevProfileTestData implements CommandLineRunner {
         Worker worker = new Worker("hydraulik@local",passwordEncoder.encode("password"),"Antoni","Figurski",new UserRole(UserRoleEnum.WORKER),"123456789");
         worker.getCategories().add(category);
         worker.setContactEmail("hydraulik1@wp.pl");
+        worker.setUserStatus(UserStatusEnum.ACCEPTED);
         category.getWorkers().add(worker);
         workerRepository.save(worker);
 
-
-        messageRepository.save(new Message("Brak ciepłej wody","W dniach 4-5 września 2018 nie będzie ciepłej wody",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Zamknięte główne drzwi","\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\"",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Brak prądu1","W dniach 22-23 paźniernika nie będzie prądu",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Brak prądu2","W dniach 22-23 paźniernika nie będzie prądu",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Brak prądu3","W dniach 22-23 paźniernika nie będzie prądu",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Brak prądu4","W dniach 22-23 paźniernika nie będzie prądu",workerRepository.findByEmail("worker@local")));
-        messageRepository.save(new Message("Brak prądu5","W dniach 22-23 paźniernika nie będzie prądu",workerRepository.findByEmail("worker@local")));
 
         Task task = new Task();
         task.setTitle("Problem z umywalką");

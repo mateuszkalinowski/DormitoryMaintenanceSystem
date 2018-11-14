@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.model.Message;
 import pl.dormitorymaintenancesystem.model.users.Employee;
@@ -88,6 +89,7 @@ public class MessageController {
 
             for(Message message : messages) {
                 HashMap<String,Object> element = new HashMap<>();
+                element.put("id",message.getId());
                 element.put("title",message.getTitle());
                 element.put("content",message.getContent());
                 element.put("timeStamp", message.getTimeStamp().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy")));
@@ -95,6 +97,40 @@ public class MessageController {
             }
 
             return ResponseEntity.ok().body(Page.createPage(page,size,announcementsList));
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity removeAnnouncementById(@PathVariable Long id) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String currentEmail = authentication.getName();
+            Employee employee = employeeRepository.findByEmail(currentEmail);
+            if(employee == null)
+                return ResponseEntity.badRequest().build();
+
+            boolean deleted = false;
+
+            for(int i = employee.getMessageList().size()-1; i >= 0; i--) {
+                if(employee.getMessageList().get(i).getId().equals(id)) {
+                    employee.getMessageList().remove(i);
+                    deleted = true;
+                    break;
+                }
+            }
+
+            if(deleted) {
+                employeeRepository.save(employee);
+                messageRepository.deleteById(id);
+
+                return ResponseEntity.ok().build();
+            }
+            else {
+                return ResponseEntity.badRequest().build();
+            }
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

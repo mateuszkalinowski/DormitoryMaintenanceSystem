@@ -50,6 +50,8 @@ export class WorkerNewAnnouncementPageComponent implements OnInit {
         this.newAnnouncement.title = '';
         this.newAnnouncement.content = '';
 
+        this.router.navigate(['/workerPage/myAnnouncements']);
+
       }
     ).catch(() => {
       this.message = 'Ogłoszenie nie zostało opublikowane z powodu nieznanego błędu';

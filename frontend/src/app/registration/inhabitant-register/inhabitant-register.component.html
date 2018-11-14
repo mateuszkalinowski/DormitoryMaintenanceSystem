@@ -15,28 +15,37 @@
           <label for="mail" class="w-50 mt-4"><b>Adres e-mail:</b></label>
           <input class="form-control w-50 mt-4" id="mail" type="text" [(ngModel)]="inhabitantRegistrationData.email"/>
           <label for="password" class="w-50 mt-4"><b>Hasło:</b></label>
-          <input class="form-control w-50 mt-4" id="password" type="password" [(ngModel)]="inhabitantRegistrationData.password"/>
+          <input class="form-control w-50 mt-4" id="password" type="password"
+                 [(ngModel)]="inhabitantRegistrationData.password"/>
           <label for="password2" class="w-50 mt-4"><b>Powtórz hasło:</b></label>
           <input class="form-control w-50 mt-4" id="password2" type="password" [(ngModel)]="confirmPassword"/>
           <label for="name" class="w-50 mt-4"><b>Imię:</b></label>
-          <input class="form-control w-50 mt-4" id="name" type="text" [(ngModel)]="inhabitantRegistrationData.firstName"/>
+          <input class="form-control w-50 mt-4" id="name" type="text"
+                 [(ngModel)]="inhabitantRegistrationData.firstName"/>
           <label for="surname" class="w-50 mt-4"><b>Nazwisko:</b></label>
-          <input class="form-control w-50 mt-4" id="surname" type="text" [(ngModel)]="inhabitantRegistrationData.lastName"/>
+          <input class="form-control w-50 mt-4" id="surname" type="text"
+                 [(ngModel)]="inhabitantRegistrationData.lastName"/>
           <label for="roomnumber" class="w-50 mt-4"><b>Numer pokoju:</b></label>
-          <input class="form-control w-50 mt-4" id="roomnumber" type="text" [(ngModel)]="inhabitantRegistrationData.roomNumber"/>
+          <input class="form-control w-50 mt-4" id="roomnumber" type="text"
+                 [(ngModel)]="inhabitantRegistrationData.roomNumber"/>
           <label for="category" class="w-50 mt-4"><b>Akademik:</b></label>
           <select id="category" #selectedDormitoryName class="form-control w-50 mt-4">
             <option *ngFor="let dormitoryName of dormitoryNames" value=dormitoryName>{{dormitoryName}}</option>
           </select>
-          <input class="btn btn-dark border border-dark btn-lg btn-block mt-4" type="submit" value="Zarejestruj" (click)="register(selectedDormitoryName.selectedIndex)" />
         </div>
+        <h6 *ngIf="status === true" class="mb-4 text-success mt-4"> {{message}} </h6>
+
+        <h6 *ngIf="status === false" class="mb-4 text-danger mt-4"> {{message}} </h6>
+
+        <input class="btn btn-dark border border-dark btn-lg btn-block mt-4" type="submit" value="Zarejestruj"
+               (click)="register(selectedDormitoryName.selectedIndex)"/>
+
       </div>
-     {{message}}
     </div>
   </div>
   <div class="row mt-3">
     <div class="mx-auto text-center">
-        <button class="btn border btn-dark border-dark btn-lg btn-block mt-4" routerLink="/">Powrót</button>
+      <button class="btn border btn-dark border-dark btn-lg btn-block mt-4" routerLink="/">Powrót</button>
     </div>
   </div>
 </div>

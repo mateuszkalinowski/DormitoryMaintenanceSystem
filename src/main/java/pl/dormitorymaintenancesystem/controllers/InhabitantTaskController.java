@@ -104,6 +104,8 @@ public class InhabitantTaskController {
                 requestDTOList.add(new RequestDTO(task.getId(), task.getTitle(), task.getContent(), task.getTimeStamp(), task.getComment(), task.getCategory().getCategory(), task.getStatus().name(),assignedTo));
             }
 
+            requestDTOList.sort((o1, o2) -> o2.getTime().compareTo(o1.getTime()));
+
             return ResponseEntity.ok().body(Page.createPage(page, size,requestDTOList));
 
 

@@ -15,6 +15,7 @@ export class InhabitantRegisterComponent implements OnInit {
   confirmPassword: string;
   confirmEmail: string;
   dormitoryNames: string[];
+  status: boolean;
 
   constructor(
     private apiService: ApiService,
@@ -37,13 +38,33 @@ export class InhabitantRegisterComponent implements OnInit {
   }
 
   register(selectedDormitoryName: number) {
+
+    if ( this.inhabitantRegistrationData.email === ''
+      || this.inhabitantRegistrationData.firstName === ''
+      || this.inhabitantRegistrationData.lastName === ''
+      || this.inhabitantRegistrationData.password === ''
+      || this.inhabitantRegistrationData.roomNumber === ''
+      || this.inhabitantRegistrationData.dormitoryName === '') {
+      this.message = 'Wypełnij wszystkie pola';
+      this.status = false;
+      return;
+    }
+
+    if (this.inhabitantRegistrationData.password !== this.confirmPassword) {
+      this.message = 'Wprowadzona hasła nie zgadzają się';
+      this.status = false;
+      return;
+    }
+
      this.inhabitantRegistrationData.dormitoryName = this.dormitoryNames[selectedDormitoryName];
     this.apiService.callApi('api/inhabitant/add', 'POST', this.inhabitantRegistrationData, null).then(
       data => {
         this.message = data.message;
+        this.status = true;
       }
     ).catch(data => {
       this.message = data.message;
+      this.status = false;
     });
   }
 

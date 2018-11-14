@@ -25,6 +25,8 @@ export class LogInComponent implements OnInit {
   ngOnInit() {
     this.errorMessage = '';
     this.loginData = new LoginData();
+    this.loginData.email = '';
+    this.loginData.password = '';
   }
 
   register() {
@@ -32,6 +34,10 @@ export class LogInComponent implements OnInit {
   }
 
   login() {
+    if (this.loginData.email === '' || this.loginData.password === '') {
+      this.errorMessage = 'Podaj nazwę użytkownika i hasło';
+      return ;
+    }
     this.apiService.callApi('api/login', 'POST', this.loginData, null)
       .then(data => {
           this.currentUser.token = data.token;
@@ -46,11 +52,11 @@ export class LogInComponent implements OnInit {
               this.router.navigate(['/']);
             }
           ).catch(loggedInUser => {
-            this.errorMessage = 'Nie udało się zalogować';
+              this.errorMessage = 'Nie udało się zalogować';
           });
       }).catch(
         data => {
-          this.errorMessage = 'Nie udało się zalogować';
+          this.errorMessage = data.message;
         }
     );
   }

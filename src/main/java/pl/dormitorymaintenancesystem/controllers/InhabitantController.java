@@ -42,6 +42,8 @@ public class InhabitantController {
     @PostMapping(value = "/add")
     public ResponseEntity addInhabitant(@RequestBody InhabitantDTO inhabitantDTO) {
         try {
+            if(inhabitantDTO.getEmail() == null|| inhabitantDTO.getFirstName() == null|| inhabitantDTO.getLastName() == null || inhabitantDTO.getPassword() == null|| inhabitantDTO.getRoomNumber() == null || inhabitantDTO.getDormitoryName() == null)
+                return ResponseEntity.ok(new MessageDTO("Wypełnij wszystkie pola"));
             User check = userRepository.findByEmail(inhabitantDTO.getEmail());
             if(check!=null)
                 return ResponseEntity.badRequest().body(new MessageDTO("Ten adres email jest już użyty"));
@@ -62,7 +64,8 @@ public class InhabitantController {
 
             inhabitantRepository.save(inhabitant);
             roomRepository.save(room);
-            return ResponseEntity.ok(new MessageDTO("Użytkownik został dodany"));
+            return ResponseEntity.ok(new MessageDTO("Użytkownik został dodany. Zalogowanie będzie możliwe " +
+                    "po zaakceptowaniu konta przez administratora systemu"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(new MessageDTO("Podczas dodawania mieszkańca wystąpił błąd"));

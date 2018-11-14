@@ -17,3 +17,6 @@
 /*.material-icons.active {*/
   /*color: #607d8b;*/
 /*}*/
+.pagination {
+  justify-content: center;
+}

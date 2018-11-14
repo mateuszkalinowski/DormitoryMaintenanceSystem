@@ -31,8 +31,19 @@ export class WorkerOwnAnnouncementsPageComponent implements OnInit {
     this.showPage(0);
   }
 
-  showPage(pageNumber: number) {
+  removeAnnouncement(id: number) {
+    this.apiService.callApi('api/announcement/' + id, 'delete', null, this.currentUser.token).then(
+      () => {
+        if (this.announcements.length > 1 || this.activePage === 0) {
+          this.showPage(this.activePage);
+        } else {
+          this.showPage(this.activePage - 1);
+        }
+      }
+    );
+  }
 
+  showPage(pageNumber: number) {
     this.apiService.callApi('api/announcement/getAllBySender?page=' + pageNumber + '&size=' + this.numberOfItemsOnPage,
       'GET', null, this.currentUser.token)
       .then(
@@ -43,10 +54,10 @@ export class WorkerOwnAnnouncementsPageComponent implements OnInit {
 
           this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
           this.activePage = pageNumber;
-
         }
       ).catch(
     );
+
   }
 
 }
