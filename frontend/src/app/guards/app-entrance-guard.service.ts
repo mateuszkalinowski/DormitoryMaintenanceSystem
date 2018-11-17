@@ -22,7 +22,7 @@ export class AppEntranceGuardService implements CanActivate {
           this.router.navigate(['/workerPage/waitingTasks']);
           return false;
         } else if (this.currentUserService.role === 'ADMIN') {
-          this.router.navigate(['/adminPage']);
+          this.router.navigate(['/adminPage/news']);
           return false;
         } else {
           this.router.navigate(['/login']);

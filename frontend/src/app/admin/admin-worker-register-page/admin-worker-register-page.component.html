@@ -1,0 +1,61 @@
+<div class="row mt-3">
+  <div class="col-md-5 mx-auto text-center">
+    <h3>Wprowadź dane pracownika:</h3>
+    <div id="form-group">
+      <div class="form-inline">
+        <label for="mail" class="w-50 mt-4"><b>Adres e-mail:</b></label>
+        <input class="form-control w-50 mt-4" id="mail" type="text" [(ngModel)]="workerRegistrationData.email"/>
+        <label for="password" class="w-50 mt-4"><b>Hasło:</b></label>
+        <input class="form-control w-50 mt-4" id="password" type="password"
+               [(ngModel)]="workerRegistrationData.password"/>
+        <label for="password2" class="w-50 mt-4"><b>Powtórz hasło:</b></label>
+        <input class="form-control w-50 mt-4" id="password2" type="password" [(ngModel)]="confirmPassword"/>
+        <label for="name" class="w-50 mt-4"><b>Imię:</b></label>
+        <input class="form-control w-50 mt-4" id="name" type="text"
+               [(ngModel)]="workerRegistrationData.firstName"/>
+        <label for="surname" class="w-50 mt-4"><b>Nazwisko:</b></label>
+        <input class="form-control w-50 mt-4" id="surname" type="text"
+               [(ngModel)]="workerRegistrationData.lastName"/>
+        <span class="w-100 mt-4 mb-1"><b>Kategorie:</b></span>
+        <table class="mb-4 w-100">
+          <tr class="mb-2">
+            <th>
+              <select id="category" #selectedCategory class="form-control w-50 mt-4">
+                <option *ngFor="let category of categories" value=category>{{category}}</option>
+              </select>
+            </th>
+            <th>
+              <button class="btn btn-dark mt-4" (click)="addCategory(selectedCategory.selectedIndex)">Dodaj</button>
+            </th>
+          </tr>
+        </table>
+        <table class="w-100">
+          <tr *ngFor="let category of workerRegistrationData.categories">
+            <th>
+              {{category}}
+            </th>
+            <th>
+              <button class="btn btn-small btn-danger removeButton" (click)="removeCategory(category)">Usuń</button>
+            </th>
+          </tr>
+        </table>
+
+        <div class="w-50 center-align">
+        </div>
+      </div>
+      <h6 *ngIf="status === true" class="mb-4 text-success mt-4"> {{message}} </h6>
+
+      <h6 *ngIf="status === false" class="mb-4 text-danger mt-4"> {{message}} </h6>
+
+      <input class="btn btn-dark border border-dark btn-lg btn-block mt-4" type="submit" value="Zarejestruj"
+             (click)="register()"/>
+
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="mx-auto text-center">
+    <button class="btn border btn-dark border-dark btn-lg btn-block mt-4" routerLink="/adminPage/workers">Powrót
+    </button>
+  </div>
+</div>

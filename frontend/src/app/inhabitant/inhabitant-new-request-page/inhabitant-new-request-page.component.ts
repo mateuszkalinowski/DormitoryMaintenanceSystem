@@ -39,6 +39,7 @@ export class InhabitantNewRequestPageComponent implements OnInit, AfterViewInit 
         this.newRequest.title = '';
         this.newRequest.description = '';
         this.message = 'Zgłoszenie zostało wysłane';
+        this.router.navigate(['/inhabitantPage/requests']);
       }
     ).catch(data => {
       this.message = 'Wystąpił błąd przy wysyłaniu zgłoszenia';
@@ -51,7 +52,7 @@ export class InhabitantNewRequestPageComponent implements OnInit, AfterViewInit 
     this.newRequest.description = '';
 
 
-    this.apiService.callApi('api/categories', 'GET', null, this.currentUser.token).then(
+    this.apiService.callApi('api/utils/categories', 'GET', null, this.currentUser.token).then(
       data => {
         this.categories = data;
         // $(document).ready(function() {

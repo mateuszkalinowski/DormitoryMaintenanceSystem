@@ -1,0 +1,66 @@
+<div class="row">
+
+  <div class="col-8 mx-auto text-center mt-3">
+    <h3>Dane osobowe:</h3>
+    <div class="form-inline">
+      <span for="firstName" class="w-50 mt-2"><strong>Imię</strong></span>
+      <input id="firstName" class="w-50 mt-2" [(ngModel)]="firstname" style="text-align: center" maxlength="32"/>
+
+      <span for="lastName" class="w-50 mt-2"><strong>Nazwisko</strong></span>
+      <input id="lastName" class="w-50 mt-2" [(ngModel)]="lastname" style="text-align: center" maxlength="64"/>
+
+      <span class="w-50 mt-2"><strong>Email</strong></span>
+      <span id="email" class="w-50 mt-2">{{emailAddress}}</span>
+
+      <span for="contactEmail" class="w-50 mt-2"><strong>Email kontaktowy</strong></span>
+      <input id="contactEmail" class="w-50 mt-2" [(ngModel)]="contactEmail" style="text-align: center" maxlength="255"/>
+
+      <span for="phoneNumber" class="w-50 mt-2"><strong>Numer telefonu</strong></span>
+      <input id="phoneNumber" class="w-50 mt-2" [(ngModel)]="phoneNumber" style="text-align: center" maxlength="255"/>
+
+      <div class="row mx-auto">
+        <input (click)="changeInfo()" class="btn btn-dark mb-3 mt-2" value="Zapisz zmiany"/>
+      </div>
+      <div class="mx-auto w-100 text-center">
+        <h6>{{infoMessage}}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-6 mx-auto text-center">
+    <!--<div class="col-6 mx-auto text-center">-->
+    <h5>Zmień hasło</h5>
+    <!--</div>-->
+    <!--<div class="row">-->
+
+    <div>
+      <div class="input-field">
+        <i class="material-icons prefix">lock_open</i>
+        <label for="oldPassword"><b>Poprzednie hasło:</b></label>
+        <input [(ngModel)]="passwordChangeData.oldPassword" class="form-control text-center" type="password" id="oldPassword"
+               name="oldPassword"/><br/>
+      </div>
+      <div class="input-field">
+        <i class="material-icons prefix">lock_outline</i>
+        <label for="newPassword"><b>Nowe hasło:</b></label>
+        <input [(ngModel)]="passwordChangeData.newPassword" class="form-control text-center" type="password" id="newPassword"
+               name="newPassword"/><br/>
+      </div>
+      <div class="input-field">
+        <i class="material-icons prefix">lock_outline</i>
+        <label for="newPassword2"><b>Powtórz nowe hasło:</b></label>
+        <input [(ngModel)]="passwordRepeat" class="form-control text-center" type="password" id="newPassword2" name="newPassword2"/><br/>
+      </div>
+      <!--<div class="input-field">-->
+      <!--{{message}}-->
+      <!--</div>-->
+      <input (click)="changePassword()" class="btn btn-dark mb-3 mt-2" value="Zmień"/>
+      <div class="mx-auto w-100 text-center">
+        <h6>{{message}}</h6>
+      </div>
+    </div>
+  </div>
+  <!--</div>-->
+</div>

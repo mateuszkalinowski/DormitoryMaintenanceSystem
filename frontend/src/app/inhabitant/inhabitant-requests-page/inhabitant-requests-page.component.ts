@@ -21,6 +21,8 @@ export class InhabitantRequestsPageComponent implements OnInit, AfterViewInit {
   numberOfPages: number;
   paginationInfo: PaginationInfo;
 
+  loadingFinished: boolean;
+
   constructor(
     private apiService: ApiService,
     private currentUser: CurrentUserService,
@@ -29,6 +31,7 @@ export class InhabitantRequestsPageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.loadingFinished = false;
     this.numberOfItemsOnPage = 8;
     this.paginationInfo = new PaginationInfo();
     this.showPage(0);
@@ -50,6 +53,7 @@ export class InhabitantRequestsPageComponent implements OnInit, AfterViewInit {
 
         this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
         this.activePage = pageNumber;
+        this.loadingFinished = true;
       }
     );
   }

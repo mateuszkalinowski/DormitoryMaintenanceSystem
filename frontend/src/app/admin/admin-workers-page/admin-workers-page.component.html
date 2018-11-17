@@ -1,0 +1,76 @@
+
+<div class="row">
+  <div class="col-6 text-center mx-auto mt-2 mb-2">
+    <h4>Lista pracowników:</h4>
+  </div>
+
+
+</div>
+<div class="row">
+  <div class="col-10 text-center mx-auto">
+    <div>
+      <h5 *ngIf="numberOfPages === 0">
+        Lista pracowników jest pusta
+      </h5>
+      <button class="btn mt-2 mb-2 btn-dark" routerLink="/adminPage/workerRegister">Zarejestruj nowego pracownika</button>
+
+      <div class="row mt-4" *ngIf="loadingFinished === false">
+        <div class="col-2 mx-auto">
+          <div class="loader"></div>
+        </div>
+      </div>
+
+      <table *ngIf="numberOfPages > 0" class="w-100 table-hover table" border="1">
+        <thead class="thead-dark">
+        <tr>
+          <th>Imię</th>
+          <th>Nazwisko</th>
+          <th>Adres-email</th>
+          <th>Numer Telefonu</th>
+          <th>Kategorie</th>
+          <th>Status</th>
+          <th>Akcja</th>
+          <!--<th>Szczegóły</th>-->
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let inhabitant of workers">
+          <td>{{inhabitant.firstName}}</td>
+          <td>{{inhabitant.lastName}}</td>
+          <td>{{inhabitant.email}}</td>
+          <td>{{inhabitant.phoneNumber}}</td>
+          <td>{{inhabitant.categories}}</td>
+          <td>{{inhabitant.status}}</td>
+
+          <td *ngIf="inhabitant.status === 'Zaakceptowane'">
+            <button class="btn btn-dark btn-block" (click)="suspendUser(inhabitant.id)">Zawieś konto</button>
+          </td>
+          <td *ngIf="inhabitant.status === 'Zawieszone'">
+            <button class="btn btn-dark btn-block" (click)="activateUser(inhabitant.id)">Aktywuj ponownie</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row mt-3">
+  <div class="col-8 mx-auto text-center">
+    <nav *ngIf="numberOfPages > 1">
+      <ul class="pagination">
+        <li *ngIf="activePage === 0" class="page-item disabled"><a class="page-link">Poprzednia</a></li>
+        <li *ngIf="activePage>0" class="page-item"><a class="page-link" (click)="showPage(activePage-1)">Poprzednia</a></li>
+        <li *ngFor="let page of paginationInfo.pagesBeforeActive" class="page-item"><a class="page-link" (click)="showPage(page)" href="#">{{page+1}}</a></li>
+        <li class="page-item active"><a class="page-link" (click)="showPage(activePage)">{{activePage+1}}</a></li>
+        <li *ngFor="let page of paginationInfo.pagesAfterActive" class="page-item"><a class="page-link" (click)="showPage(page)">{{page+1}}</a></li>
+        <li *ngIf="activePage<numberOfPages-1" class="page-item"><a class="page-link" (click)="showPage(activePage+1)">Następna</a></li>
+        <li *ngIf="activePage === numberOfPages-1" class="page-item disabled"><a class="page-link">Następna</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>

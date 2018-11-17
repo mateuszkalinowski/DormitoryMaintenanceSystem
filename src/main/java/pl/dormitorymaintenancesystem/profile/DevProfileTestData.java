@@ -9,6 +9,7 @@ import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 import pl.dormitorymaintenancesystem.enums.UserRoleEnum;
 import pl.dormitorymaintenancesystem.enums.UserStatusEnum;
 import pl.dormitorymaintenancesystem.model.*;
+import pl.dormitorymaintenancesystem.model.users.Administrator;
 import pl.dormitorymaintenancesystem.model.users.Inhabitant;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 import pl.dormitorymaintenancesystem.repositories.*;
@@ -25,6 +26,8 @@ public class DevProfileTestData implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private UserRolesRepository userRolesRepository;
+    @Autowired
+    private AdministratorRepository administratorRepository;
     @Autowired
     private InhabitantRepository inhabitantRepository;
     @Autowired
@@ -85,6 +88,12 @@ public class DevProfileTestData implements CommandLineRunner {
         task.setTimeStamp(LocalDateTime.now());
         task.setStatus(TaskStatusEnum.REQUEST_WAITING);
         taskRepository.save(task);
+
+        Administrator administrator = new Administrator("admin@local",passwordEncoder.encode("password"),"Admin","Admiński",new UserRole(UserRoleEnum.ADMIN));
+        administrator.setUserStatus(UserStatusEnum.ACCEPTED);
+        administrator.setContactEmail("contact@administrator.pl");
+        administrator.setPhoneNumber("785-987-364");
+        administratorRepository.save(administrator);
 
     }
 }

@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Data
 public class AnnouncementDTO extends Object implements Serializable, Comparable<AnnouncementDTO> {
 
+    private String id;
+
     private String title;
     private String content;
 
@@ -23,7 +25,8 @@ public class AnnouncementDTO extends Object implements Serializable, Comparable<
         return o.timeStamp.compareTo(this.timeStamp);
     }
 
-    public AnnouncementDTO(String title, String content, LocalDateTime timeStamp, String workerEmail, String workerFirstName, String workerLastName) {
+    public AnnouncementDTO(String id, String title, String content, LocalDateTime timeStamp, String workerEmail, String workerFirstName, String workerLastName) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.timeStamp = timeStamp;

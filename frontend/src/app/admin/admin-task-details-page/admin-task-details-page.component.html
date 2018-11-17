@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-8 mx-auto">
+
+    <div class="row mt-4" *ngIf="loadingFinished === false">
+      <div class="col-2 mx-auto">
+        <div class="loader"></div>
+      </div>
+    </div>
+
+    <div class="card my-3 text-center" *ngIf="loadingFinished === true">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-3">
+            <button class="btn btn-dark btn-small" routerLink="/adminPage/tasks">Cofnij</button>
+
+          </div>
+          <div class="col-6">
+            <h5>Nadawca: {{task.senderFirstName}} {{task.senderLastName}}</h5>
+          </div>
+          <div class="col-3">
+            <h4><span class="badge badge-secondary">{{task.category}}</span></h4>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="card-body">
+        <div class="form-inline">
+          <h3 class="w-100">{{task.title}}</h3>
+          <h4 class="w-100">{{task.content}}</h4>
+
+          <span class="w-50 mt-2"><strong>Kategoria</strong></span>
+          <span id="category" class="w-50 mt-2">{{task.category}}</span>
+
+          <span class="w-50 mt-2"><strong>Pokój</strong></span>
+          <span id="room" class="w-50 mt-2">{{task.room}}</span>
+
+          <span class="w-50 mt-2"><strong>Dom Studencki</strong></span>
+          <span id="dormitory" class="w-50 mt-2">{{task.dormitoryName}}</span>
+
+          <label for="content" class="w-50 mt-2"><b>Komentarz:</b></label>
+          <textarea rows="4" class="form-control w-50 mt-4 mb-4" id="content" [(ngModel)]="task.comment"
+                    name="comment" maxlength="512" readonly></textarea>
+
+          <span class="w-50 mt-2"><strong>Status</strong></span>
+          <span id="status" class="w-50 mt-2">{{task.status}}</span>
+          <div class="mx-auto mt-4">
+            <button class="btn btn-danger" (click)="delete()">Usuń zgłoszenie</button>
+          </div>
+
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <p>Zgłoszono: {{task.timeStamp}}</p>
+      </div>
+    </div>
+  </div>
+</div>

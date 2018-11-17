@@ -13,6 +13,8 @@ export class InhabitantRequestDetailsComponent implements OnInit {
 
   request: any;
 
+  loadingFinished: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
@@ -21,6 +23,7 @@ export class InhabitantRequestDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingFinished = false;
     this.getRequest();
     this.request = '';
   }
@@ -31,6 +34,7 @@ export class InhabitantRequestDetailsComponent implements OnInit {
     this.apiService.callApi('api/inhabitant/task/' + id, 'GET', null, this.currentUser.token).then(
       data => {
         this.request = data;
+        this.loadingFinished = true;
       }
     ).catch(
       data => {

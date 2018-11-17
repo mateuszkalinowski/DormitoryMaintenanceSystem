@@ -12,12 +12,14 @@
         </select>
         <label for="content" class="w-50 mt-4"><b>Treść:</b></label>
         <textarea rows="4" class="form-control w-50 mt-4 mb-4" id="content" [(ngModel)]="newRequest.description" name="content"></textarea>
+
+        <h6 class="mb-4 text-danger mx-auto"> {{message}} </h6>
+
         <div class="card-footer w-100">
           <button class="btn btn-dark" (click)="send(selectedCategory.selectedIndex)" type="submit">Wyślij</button>
         </div>
       </form>
     </div>
-    <p class="text-danger">{{message}}</p>
   </div>
 </div>
 

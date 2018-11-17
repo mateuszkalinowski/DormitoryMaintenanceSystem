@@ -6,6 +6,7 @@ import pl.dormitorymaintenancesystem.enums.UserStatusEnum;
 import pl.dormitorymaintenancesystem.model.UserRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,14 @@ public class User implements Serializable {
     private Long id;
 
     @Column(unique = true)
+    @NotNull
     private String email;
 
     @JsonIgnore
     private String password;
+    @Column(length = 32)
     private String firstName;
+    @Column(length = 64)
     private String lastName;
 
     public User(){}

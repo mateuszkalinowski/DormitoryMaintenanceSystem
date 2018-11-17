@@ -26,7 +26,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        try {
             User user = userRepository.findByEmail(authentication.getPrincipal().toString());
             if (user == null) {
                 throw new IllegalArgumentException("Niepoprawny email lub hasło");
@@ -52,9 +51,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
                     throw new IllegalArgumentException("Niepoprawny email lub hasło");
                 }
             }
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Niepoprawny email lub hasło");
-        }
     }
 
     @Override

@@ -24,6 +24,8 @@ export class InhabitantNewsPageComponent implements OnInit {
   numberOfPages: number;
   paginationInfo: PaginationInfo;
 
+  loadingFinished: boolean;
+
   constructor(
     private apiService: ApiService,
     private currentUser: CurrentUserService,
@@ -32,6 +34,7 @@ export class InhabitantNewsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingFinished = false;
     this.numberOfItemsOnPage = 4;
     this.paginationInfo = new PaginationInfo();
     this.showPage(0);
@@ -49,6 +52,7 @@ export class InhabitantNewsPageComponent implements OnInit {
 
         this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
         this.activePage = pageNumber;
+        this.loadingFinished = true;
 
       }
     ).catch(

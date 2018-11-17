@@ -20,6 +20,8 @@ export class WorkerAssignedTasksComponent implements OnInit {
   numberOfPages: number;
   paginationInfo: PaginationInfo;
 
+  loadingFinished: boolean;
+
   constructor(
     private apiService: ApiService,
     private currentUser: CurrentUserService,
@@ -28,6 +30,7 @@ export class WorkerAssignedTasksComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingFinished = false;
     this.numberOfItemsOnPage = 8;
     this.paginationInfo = new PaginationInfo();
     this.showPage(0);
@@ -43,6 +46,7 @@ export class WorkerAssignedTasksComponent implements OnInit {
 
         this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
         this.activePage = pageNumber;
+        this.loadingFinished = true;
       }
     );
   }

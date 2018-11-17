@@ -17,6 +17,7 @@ export class WorkerOwnAnnouncementsPageComponent implements OnInit {
   activePage: number;
   numberOfPages: number;
   paginationInfo: PaginationInfo;
+  loadingFinished: boolean;
 
   constructor(
     private apiService: ApiService,
@@ -26,6 +27,7 @@ export class WorkerOwnAnnouncementsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingFinished = false;
     this.numberOfItemsOnPage = 4;
     this.paginationInfo = new PaginationInfo();
     this.showPage(0);
@@ -54,6 +56,7 @@ export class WorkerOwnAnnouncementsPageComponent implements OnInit {
 
           this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
           this.activePage = pageNumber;
+          this.loadingFinished = true;
         }
       ).catch(
     );

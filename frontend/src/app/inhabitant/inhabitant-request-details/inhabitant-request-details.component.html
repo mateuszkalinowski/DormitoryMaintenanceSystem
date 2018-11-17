@@ -1,79 +1,88 @@
- <div class="row mt-3">
-   <div class="col-2">
+<div class="row mt-3">
+  <div class="col-2">
     <button class="btn btn-small btn-dark" routerLink="/inhabitantPage/requests">Cofnij</button>
-   </div>
-      <div class="col-8 text-center">
-        <h4>Wybrane zgłoszenie:</h4>
-        <table class="w-100 table mt-3">
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">title</i>
-            </td>
-            <td>
-              Tytuł:
-            </td>
-            <td>
-              {{request.title}}
-            </td>
-          </tr>
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">category</i>
-            </td>
-            <td>
-              Kategoria:
-            </td>
-            <td>
-              {{request.category}}
-            </td>
-          </tr>
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">date_range</i>
-            </td>
-            <td>
-              Opublikowano:
-            </td>
-            <td>
-              {{request.timeStamp}}
-            </td>
-          </tr>
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">insert_comment</i>
-            </td>
-            <td>
-              Komentarz:
-            </td>
-            <td>
-              {{request.comment}}
-            </td>
-          </tr>
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">bookmark</i>
-            </td>
-            <td>
-              Status:
-            </td>
-            <td>
-              {{request.status}}
-            </td>
-          </tr>
-          <tr>
-            <td class="center-align">
-              <i class="material-icons prefix">subject</i>
-            </td>
-            <td>
-              Treść:
-            </td>
-            <td>
-              <p>{{request.content}}</p>
-            </td>
-          </tr>
-        </table>
-        <button *ngIf="request.assignedTo === ''" (click)="removeRequest()" class="btn btn-danger mt-2">Usuń</button>
-        <button *ngIf="request.assignedTo !== ''" class="btn btn-danger mt-2 disabled" disabled>Nie można usunąć podjętego zgłoszenia</button>
+  </div>
+  <div class="col-8 text-center">
+    <h4>Wybrane zgłoszenie:</h4>
 
+    <div class="row mt-4" *ngIf="loadingFinished === false">
+      <div class="col-2 mx-auto">
+        <div class="loader"></div>
       </div>
     </div>
+    <div *ngIf="loadingFinished === true">
+      <table class="w-100 table mt-3">
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">title</i>
+          </td>
+          <td>
+            Tytuł:
+          </td>
+          <td>
+            {{request.title}}
+          </td>
+        </tr>
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">category</i>
+          </td>
+          <td>
+            Kategoria:
+          </td>
+          <td>
+            {{request.category}}
+          </td>
+        </tr>
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">date_range</i>
+          </td>
+          <td>
+            Opublikowano:
+          </td>
+          <td>
+            {{request.timeStamp}}
+          </td>
+        </tr>
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">insert_comment</i>
+          </td>
+          <td>
+            Komentarz:
+          </td>
+          <td>
+            {{request.comment}}
+          </td>
+        </tr>
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">bookmark</i>
+          </td>
+          <td>
+            Status:
+          </td>
+          <td>
+            {{request.status}}
+          </td>
+        </tr>
+        <tr>
+          <td class="center-align">
+            <i class="material-icons prefix">subject</i>
+          </td>
+          <td>
+            Treść:
+          </td>
+          <td>
+            <p>{{request.content}}</p>
+          </td>
+        </tr>
+      </table>
+      <button *ngIf="request.assignedTo === ''" (click)="removeRequest()" class="btn btn-danger mt-2">Usuń</button>
+      <button *ngIf="request.assignedTo !== ''" class="btn btn-danger mt-2 disabled" disabled>Nie można usunąć podjętego
+        zgłoszenia
+      </button>
+    </div>
+  </div>
+</div>
