@@ -1,5 +1,6 @@
 package pl.dormitorymaintenancesystem.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +9,10 @@ import pl.dormitorymaintenancesystem.utils.dataInput.TaskUpdate;
 
 @RestController
 @RequestMapping("api/worker/task")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WorkerTaskController {
 
-    @Autowired
-    private WorkerTaskService workerTaskService;
+    private final WorkerTaskService workerTaskService;
 
     @GetMapping(value = "/waitingTasks")
     public ResponseEntity getAllWaitingTasks(@RequestParam int page, @RequestParam int size) {

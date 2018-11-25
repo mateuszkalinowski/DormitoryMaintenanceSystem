@@ -1,5 +1,6 @@
 package pl.dormitorymaintenancesystem.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,10 @@ import javax.transaction.Transactional;
 @RestController
 @RequestMapping(value = "api/announcement")
 @Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @GetMapping
     public ResponseEntity getAllAnnouncements(@RequestParam int page, @RequestParam int size){

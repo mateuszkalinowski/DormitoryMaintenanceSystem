@@ -69,6 +69,7 @@ public class WorkerTaskService {
 
                 return ResponseEntity.ok(Page.createPage(page,size,resultList));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

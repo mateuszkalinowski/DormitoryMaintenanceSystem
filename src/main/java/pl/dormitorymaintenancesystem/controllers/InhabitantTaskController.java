@@ -1,5 +1,6 @@
 package pl.dormitorymaintenancesystem.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -29,10 +30,10 @@ import java.util.List;
 @RestController
 @RequestMapping("api/inhabitant/task")
 @Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class InhabitantTaskController {
 
-    @Autowired
-    private InhabitantTaskService inhabitantTaskService;
+    private final InhabitantTaskService inhabitantTaskService;
 
     @PostMapping
     public ResponseEntity addRequest(@RequestBody NewRequestDTO newRequestDTO) {
