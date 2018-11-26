@@ -5,15 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import pl.dormitorymaintenancesystem.enumTranslation.RequestStatusTranslation;
+import pl.dormitorymaintenancesystem.enumTranslation.TaskStatusTranslation;
 import pl.dormitorymaintenancesystem.enums.TaskStatusEnum;
 import pl.dormitorymaintenancesystem.model.Task;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 import pl.dormitorymaintenancesystem.repositories.TaskRepository;
 import pl.dormitorymaintenancesystem.repositories.WorkerRepository;
 import pl.dormitorymaintenancesystem.utils.Page;
-import pl.dormitorymaintenancesystem.utils.dataInput.TaskUpdate;
+import pl.dormitorymaintenancesystem.utils.dataInput.TaskUpdateDTO;
 import pl.dormitorymaintenancesystem.utils.dataOutput.MessageDTO;
 
 import javax.transaction.Transactional;
@@ -58,7 +57,7 @@ public class WorkerTaskService {
                     taskMap.put("comment", task.getComment());
                     taskMap.put("content", task.getContent());
                     taskMap.put("category", task.getCategory().getCategory());
-                    taskMap.put("status", RequestStatusTranslation.translateRequestStatus(task.getStatus()));
+                    taskMap.put("status", TaskStatusTranslation.translateTaskStatus(task.getStatus()));
                     taskMap.put("senderFirstName",task.getInhabitant().getFirstName());
                     taskMap.put("senderLastName",task.getInhabitant().getLastName());
                     taskMap.put("room",task.getInhabitant().getRoom().getRoomNumber());
@@ -97,7 +96,7 @@ public class WorkerTaskService {
                 taskMap.put("comment", task.getComment());
                 taskMap.put("content", task.getContent());
                 taskMap.put("category", task.getCategory().getCategory());
-                taskMap.put("status", RequestStatusTranslation.translateRequestStatus(task.getStatus()));
+                taskMap.put("status", TaskStatusTranslation.translateTaskStatus(task.getStatus()));
                 taskMap.put("senderFirstName",task.getInhabitant().getFirstName());
                 taskMap.put("senderLastName",task.getInhabitant().getLastName());
                 taskMap.put("room",task.getInhabitant().getRoom().getRoomNumber());
@@ -112,7 +111,7 @@ public class WorkerTaskService {
         }
     }
 
-    public ResponseEntity assignTastToMe(Long id) {
+    public ResponseEntity assignTaskToMe(Long id) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentEmail = authentication.getName();
@@ -122,6 +121,8 @@ public class WorkerTaskService {
 
             Task task = taskRepository.findById(id).orElse(null);
             if (task == null)
+                return ResponseEntity.badRequest().build();
+            if (!worker.getCategories().contains(task.getCategory()))
                 return ResponseEntity.badRequest().build();
             task.setWorker(worker);
             worker.getTasks().add(task);
@@ -154,7 +155,7 @@ public class WorkerTaskService {
                 taskMap.put("comment", task.getComment());
                 taskMap.put("content", task.getContent());
                 taskMap.put("category", task.getCategory().getCategory());
-                taskMap.put("status", RequestStatusTranslation.translateRequestStatus(task.getStatus()));
+                taskMap.put("status", TaskStatusTranslation.translateTaskStatus(task.getStatus()));
                 taskMap.put("senderFirstName",task.getInhabitant().getFirstName());
                 taskMap.put("senderLastName",task.getInhabitant().getLastName());
                 taskMap.put("room",task.getInhabitant().getRoom().getRoomNumber());
@@ -172,7 +173,7 @@ public class WorkerTaskService {
         }
 
     }
-    public ResponseEntity updateTask(Long id,TaskUpdate taskUpdate) {
+    public ResponseEntity updateTask(Long id, TaskUpdateDTO taskUpdateDTO) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentEmail = authentication.getName();
@@ -180,15 +181,15 @@ public class WorkerTaskService {
             if (worker == null)
                 return ResponseEntity.badRequest().build();
 
-            if(taskUpdate.getComment().length()>4096)
+            if(taskUpdateDTO.getComment().length()>4096)
                 return ResponseEntity.badRequest().body(new MessageDTO("Zbyt długi komentarz"));
 
             Task task = taskRepository.findById(id).orElse(null);
             if(task==null)
                 return ResponseEntity.badRequest().build();
             if(task.getWorker().getId().equals(worker.getId())) {
-                task.setStatus(TaskStatusEnum.values()[taskUpdate.getStatus()]);
-                task.setComment(taskUpdate.getComment());
+                task.setStatus(TaskStatusEnum.values()[taskUpdateDTO.getStatus()]);
+                task.setComment(taskUpdateDTO.getComment());
                 taskRepository.save(task);
                 return ResponseEntity.ok().build();
 

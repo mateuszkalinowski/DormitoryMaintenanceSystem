@@ -104,7 +104,7 @@ public class WorkerTaskControllerTest {
         Task task = new Task();
         task.setTitle("SampleTitle");
         task.setComment("SampleComment");
-        task.setStatus(TaskStatusEnum.REQUEST_WAITING);
+        task.setStatus(TaskStatusEnum.TASK_WAITING);
         task.setWorker(worker);
         task.setInhabitant(inhabitant);
         task.setTimeStamp(LocalDateTime.now());
@@ -118,7 +118,7 @@ public class WorkerTaskControllerTest {
         Task task2 = new Task();
         task2.setTitle("SampleTitle");
         task2.setComment("SampleComment");
-        task2.setStatus(TaskStatusEnum.REQUEST_WAITING);
+        task2.setStatus(TaskStatusEnum.TASK_WAITING);
         task2.setWorker(worker);
         task2.setInhabitant(inhabitant);
         task2.setTimeStamp(LocalDateTime.now());

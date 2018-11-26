@@ -42,4 +42,15 @@ public class UserService {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    public ResponseEntity rejectUser(Long id) {
+        try {
+            User user = userRepository.findById(id).orElse(null);
+            user.setUserStatus(UserStatusEnum.REJECTED);
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

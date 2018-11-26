@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskUpdate {
+public class TaskUpdateDTO {
     private String comment;
     private Integer status;
 }

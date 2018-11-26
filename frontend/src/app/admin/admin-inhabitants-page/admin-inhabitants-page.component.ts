@@ -46,6 +46,12 @@ export class AdminInhabitantsPageComponent implements OnInit {
 
           this.numberOfPages = data.pageCount;
 
+          if ( pageNumber >= this.numberOfPages) {
+            pageNumber = this.numberOfPages - 1;
+            this.showPage(pageNumber);
+            return;
+          }
+
           this.paginationInfo = this.paginationService.pageContent(this.numberOfPages, pageNumber);
           this.activePage = pageNumber;
           this.loadingFinished = true;
@@ -58,6 +64,12 @@ export class AdminInhabitantsPageComponent implements OnInit {
   activateUser(id: number) {
 
     this.apiService.callApi('api/user/setAccepted/' + id, 'post', null, this.currentUser.token).then(() => {
+      this.showPage(this.activePage);
+    });
+  }
+
+  rejectUser(id: number) {
+    this.apiService.callApi('api/user/setRejected/' + id, 'post', null, this.currentUser.token).then(() => {
       this.showPage(this.activePage);
     });
   }

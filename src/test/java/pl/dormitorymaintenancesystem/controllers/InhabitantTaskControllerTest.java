@@ -19,10 +19,8 @@ import pl.dormitorymaintenancesystem.model.users.Inhabitant;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 import pl.dormitorymaintenancesystem.repositories.CategoryRepository;
 import pl.dormitorymaintenancesystem.repositories.InhabitantRepository;
-import pl.dormitorymaintenancesystem.repositories.TaskRepository;
-import pl.dormitorymaintenancesystem.repositories.UserRepository;
 import pl.dormitorymaintenancesystem.service.InhabitantTaskService;
-import pl.dormitorymaintenancesystem.utils.dataInput.NewRequestDTO;
+import pl.dormitorymaintenancesystem.utils.dataInput.NewTaskDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -77,14 +75,14 @@ public class InhabitantTaskControllerTest {
 
         Mockito.when(categoryRepository.getTopByCategory("SampleCategory")).thenReturn(category);
 
-        NewRequestDTO newRequestDTO = new NewRequestDTO();
-        newRequestDTO.setTitle("SampleTitle");
-        newRequestDTO.setDescription("SampleDescription");
-        newRequestDTO.setCategory("SampleCategory");
+        NewTaskDTO newTaskDTO = new NewTaskDTO();
+        newTaskDTO.setTitle("SampleTitle");
+        newTaskDTO.setDescription("SampleDescription");
+        newTaskDTO.setCategory("SampleCategory");
 
         mockMvc.perform(post("http://localhost:8080/api/inhabitant/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newRequestDTO)))
+                .content(objectMapper.writeValueAsString(newTaskDTO)))
                 .andExpect(status().isOk());
 
     }
@@ -114,7 +112,7 @@ public class InhabitantTaskControllerTest {
         Task task = new Task();
         task.setTitle("SampleTitle");
         task.setComment("SampleComment");
-        task.setStatus(TaskStatusEnum.REQUEST_WAITING);
+        task.setStatus(TaskStatusEnum.TASK_WAITING);
         task.setWorker(worker);
         task.setInhabitant(inhabitant);
         task.setTimeStamp(LocalDateTime.now());

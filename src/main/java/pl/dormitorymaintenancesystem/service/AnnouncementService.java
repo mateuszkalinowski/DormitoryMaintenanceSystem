@@ -5,15 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.model.Message;
 import pl.dormitorymaintenancesystem.model.users.Administrator;
 import pl.dormitorymaintenancesystem.model.users.Employee;
 import pl.dormitorymaintenancesystem.repositories.AdministratorRepository;
 import pl.dormitorymaintenancesystem.repositories.EmployeeRepository;
-import pl.dormitorymaintenancesystem.repositories.MessageRepository;
+import pl.dormitorymaintenancesystem.repositories.AnnouncementRepository;
 import pl.dormitorymaintenancesystem.utils.Page;
-import pl.dormitorymaintenancesystem.utils.dataInput.NewAnnouncement;
+import pl.dormitorymaintenancesystem.utils.dataInput.NewAnnouncementDTO;
 import pl.dormitorymaintenancesystem.utils.dataOutput.AnnouncementDTO;
 
 import javax.transaction.Transactional;
@@ -25,10 +24,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class MessageService {
+public class AnnouncementService {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private AnnouncementRepository announcementRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -41,7 +40,7 @@ public class MessageService {
         if(size==0)
             return ResponseEntity.badRequest().build();
 
-        List<Message> messageList = messageRepository.findAll();
+        List<Message> messageList = announcementRepository.findAll();
 
         List<AnnouncementDTO> announcementDTOList = new ArrayList<>();
 
@@ -56,17 +55,17 @@ public class MessageService {
         return ResponseEntity.ok().body(Page.createPage(page,size,announcementDTOList));
     }
 
-    public ResponseEntity addAnnouncement(NewAnnouncement newAnnouncement) {
+    public ResponseEntity addAnnouncement(NewAnnouncementDTO newAnnouncementDTO) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentEmail = authentication.getName();
             Employee employee = employeeRepository.findByEmail(currentEmail);
             if(employee == null)
                 return ResponseEntity.badRequest().build();
-            if(newAnnouncement.getTitle().equals("") || newAnnouncement.getContent().equals(""))
+            if(newAnnouncementDTO.getTitle().equals("") || newAnnouncementDTO.getContent().equals(""))
                 return ResponseEntity.badRequest().build();
-            Message message = new Message(newAnnouncement.getTitle(),newAnnouncement.getContent(),employee);
-            messageRepository.save(message);
+            Message message = new Message(newAnnouncementDTO.getTitle(), newAnnouncementDTO.getContent(),employee);
+            announcementRepository.save(message);
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
@@ -124,7 +123,7 @@ public class MessageService {
 
             if(deleted) {
                 employeeRepository.save(employee);
-                messageRepository.deleteById(id);
+                announcementRepository.deleteById(id);
 
                 return ResponseEntity.ok().build();
             }
@@ -146,7 +145,7 @@ public class MessageService {
                 return ResponseEntity.badRequest().build();
 
 
-                messageRepository.deleteById(id);
+                announcementRepository.deleteById(id);
 
                 return ResponseEntity.ok().build();
 

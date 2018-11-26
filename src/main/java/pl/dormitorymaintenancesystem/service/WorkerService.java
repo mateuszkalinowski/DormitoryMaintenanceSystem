@@ -2,12 +2,10 @@ package pl.dormitorymaintenancesystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.enumTranslation.UserStatusTranslation;
 import pl.dormitorymaintenancesystem.enums.UserRoleEnum;
 import pl.dormitorymaintenancesystem.enums.UserStatusEnum;
@@ -17,8 +15,8 @@ import pl.dormitorymaintenancesystem.model.users.Worker;
 import pl.dormitorymaintenancesystem.repositories.CategoryRepository;
 import pl.dormitorymaintenancesystem.repositories.WorkerRepository;
 import pl.dormitorymaintenancesystem.utils.Page;
-import pl.dormitorymaintenancesystem.utils.dataInput.NewWorkerData;
-import pl.dormitorymaintenancesystem.utils.dataInput.WorkerInfo;
+import pl.dormitorymaintenancesystem.utils.dataInput.NewWorkerDataDTO;
+import pl.dormitorymaintenancesystem.utils.dataInput.WorkerInfoDTO;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class WorkerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity updateWorkerInfo(WorkerInfo workerInfo) {
+    public ResponseEntity updateWorkerInfo(WorkerInfoDTO workerInfoDTO) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentEmail = authentication.getName();
@@ -46,31 +44,28 @@ public class WorkerService {
             if (worker == null)
                 return ResponseEntity.badRequest().build();
 
-            if(workerInfo.getContactEmail().length()<255 && workerInfo.getPhone().length()<255) {
-                worker.setContactEmail(workerInfo.getContactEmail());
-                worker.setPhoneNumber(workerInfo.getPhone());
+            if(workerInfoDTO.getContactEmail().length()<255 && workerInfoDTO.getPhone().length()<255) {
+                worker.setContactEmail(workerInfoDTO.getContactEmail());
+                worker.setPhoneNumber(workerInfoDTO.getPhone());
                 workerRepository.save(worker);
                 return ResponseEntity.ok().build();
             }
             else {
                 return ResponseEntity.badRequest().build();
             }
-
-
-
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    public ResponseEntity registerWorker(NewWorkerData newWorkerData) {
+    public ResponseEntity registerWorker(NewWorkerDataDTO newWorkerDataDTO) {
         try {
-            if (newWorkerData.getFirstName().equals("") || newWorkerData.getLastName().equals("") || newWorkerData.getEmail().equals("") || newWorkerData.getCategories().length == 0 || newWorkerData.getPassword().equals("")) {
+            if (newWorkerDataDTO.getFirstName().equals("") || newWorkerDataDTO.getLastName().equals("") || newWorkerDataDTO.getEmail().equals("") || newWorkerDataDTO.getCategories().length == 0 || newWorkerDataDTO.getPassword().equals("")) {
                 return ResponseEntity.badRequest().build();
             }
-            Worker worker = new Worker(newWorkerData.getEmail(),passwordEncoder.encode(newWorkerData.getPassword()),newWorkerData.getFirstName(),newWorkerData.getLastName(),new UserRole(UserRoleEnum.WORKER),"");
+            Worker worker = new Worker(newWorkerDataDTO.getEmail(),passwordEncoder.encode(newWorkerDataDTO.getPassword()), newWorkerDataDTO.getFirstName(), newWorkerDataDTO.getLastName(),new UserRole(UserRoleEnum.WORKER),"");
             worker.setUserStatus(UserStatusEnum.ACCEPTED);
-            for(String newCategory: newWorkerData.getCategories()) {
+            for(String newCategory: newWorkerDataDTO.getCategories()) {
                 Category category = categoryRepository.getTopByCategory(newCategory);
                 if(category == null)
                     continue;

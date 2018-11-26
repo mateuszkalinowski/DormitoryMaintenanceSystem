@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.dormitorymaintenancesystem.service.AdminService;
-import pl.dormitorymaintenancesystem.utils.dataInput.AdminInfo;
+import pl.dormitorymaintenancesystem.utils.dataInput.AdminInfoDTO;
 
 @RestController
 @RequestMapping(value = "api/admin")
@@ -18,7 +18,7 @@ public class AdminController {
 
     @PostMapping(value = "/updateInfo")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity updateAdminInfo(@RequestBody AdminInfo adminInfo) {
-        return adminService.updateAdminInfo(adminInfo);
+    public ResponseEntity updateAdminInfo(@RequestBody AdminInfoDTO adminInfoDTO) {
+        return adminService.updateAdminInfo(adminInfoDTO);
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.service.WorkerTaskService;
-import pl.dormitorymaintenancesystem.utils.dataInput.TaskUpdate;
+import pl.dormitorymaintenancesystem.utils.dataInput.TaskUpdateDTO;
 
 @RestController
 @RequestMapping("api/worker/task")
@@ -26,7 +26,7 @@ public class WorkerTaskController {
 
     @PostMapping(value = "/{id}/assignToMe")
     public ResponseEntity assignTastToMe(@PathVariable Long id) {
-        return workerTaskService.assignTastToMe(id);
+        return workerTaskService.assignTaskToMe(id);
     }
 
     @GetMapping(value = "/{id}/taskDetails")
@@ -35,8 +35,7 @@ public class WorkerTaskController {
     }
 
     @PostMapping(value = "/{id}/update")
-    public ResponseEntity updateTask(@PathVariable Long id, @RequestBody TaskUpdate taskUpdate) {
-        return workerTaskService.updateTask(id,taskUpdate);
+    public ResponseEntity updateTask(@PathVariable Long id, @RequestBody TaskUpdateDTO taskUpdateDTO) {
+        return workerTaskService.updateTask(id, taskUpdateDTO);
     }
-
 }

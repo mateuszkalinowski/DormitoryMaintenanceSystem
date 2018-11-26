@@ -83,7 +83,7 @@ public class InhabitantService {
         try {
             List<HashMap<String,Object>> usersList = new ArrayList<>();
 
-            for(Inhabitant inhabitant : inhabitantRepository.findAll()) {
+            for(Inhabitant inhabitant : inhabitantRepository.findAllByUserStatusNot(UserStatusEnum.REJECTED)) {
                 HashMap<String,Object> user = new HashMap<>();
 
                 user.put("id",inhabitant.getId());

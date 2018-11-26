@@ -27,4 +27,10 @@ public class UserController {
     public ResponseEntity suspendUser(@PathVariable Long id) {
         return userService.suspendUser(id);
     }
+
+    @PostMapping(value = "/setRejected/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity rejectUser(@PathVariable Long id) {
+        return userService.rejectUser(id);
+    }
 }

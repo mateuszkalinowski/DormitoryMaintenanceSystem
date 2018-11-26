@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class WorkerInfo {
+@NoArgsConstructor
+public class NewAnnouncementDTO {
 
-    private String contactEmail;
-    private String phone;
+    private String title;
+    private String content;
+
 }

@@ -23,11 +23,8 @@ public class Worker extends Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String phoneNumber;
-    private String contactEmail;
-
     public Worker(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        super.setPhoneNumber(phoneNumber);
     }
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -39,7 +36,7 @@ public class Worker extends Employee implements Serializable {
 
     public Worker(String email, String password, String firstname, String lastname, UserRole role, String phoneNumber) {
         super(email, password, firstname, lastname, role);
-        this.phoneNumber = phoneNumber;
+        super.setPhoneNumber(phoneNumber);
     }
 
     @OneToMany(mappedBy = "worker")

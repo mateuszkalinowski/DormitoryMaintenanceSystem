@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-10 text-center mx-auto">
+  <div class="col-11 text-center mx-auto">
     <div>
       <h5 *ngIf="numberOfPages === 0">
         Lista mieszkańców jest pusta
@@ -39,7 +39,10 @@
           <td>{{inhabitant.status}}</td>
 
           <td *ngIf="inhabitant.status === 'Nowe'">
-            <button class="btn btn-dark btn-block" (click)="activateUser(inhabitant.id)">Aktywuj</button>
+            <div class="form-inline">
+            <button class="btn btn-success btn-block w-50 mt-0" (click)="activateUser(inhabitant.id)">Aktywuj</button>
+            <button class="btn btn-danger btn-block w-50 mt-0" (click)="rejectUser(inhabitant.id)">Odrzuć</button>
+            </div>
           </td>
           <td *ngIf="inhabitant.status === 'Zaakceptowane'">
             <button class="btn btn-dark btn-block" (click)="suspendUser(inhabitant.id)">Zawieś konto</button>

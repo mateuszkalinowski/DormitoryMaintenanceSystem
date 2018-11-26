@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.dormitorymaintenancesystem.model.Message;
 import pl.dormitorymaintenancesystem.model.users.Employee;
 import pl.dormitorymaintenancesystem.repositories.EmployeeRepository;
-import pl.dormitorymaintenancesystem.repositories.MessageRepository;
-import pl.dormitorymaintenancesystem.service.MessageService;
-import pl.dormitorymaintenancesystem.utils.dataInput.NewAnnouncement;
+import pl.dormitorymaintenancesystem.repositories.AnnouncementRepository;
+import pl.dormitorymaintenancesystem.service.AnnouncementService;
+import pl.dormitorymaintenancesystem.utils.dataInput.NewAnnouncementDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,17 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class MessageControllerTest {
+public class AnnouncementControllerTest {
 
     private MockMvc mockMvc;
 
-    private MessageController messageController;
+    private AnnouncementController announcementController;
 
     @InjectMocks
-    private MessageService messageService;
+    private AnnouncementService announcementService;
 
     @Mock
-    private MessageRepository messageRepository;
+    private AnnouncementRepository announcementRepository;
 
     @Mock
     private EmployeeRepository employeeRepository;
@@ -48,8 +48,8 @@ public class MessageControllerTest {
 
     @Before
     public void setUp() {
-        messageController = new MessageController(messageService);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(messageController)
+        announcementController = new AnnouncementController(announcementService);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(announcementController)
                 .build();
     }
 
@@ -72,7 +72,7 @@ public class MessageControllerTest {
         messages.add(message);
 
 
-        Mockito.when(messageRepository.findAll()).thenReturn(messages);
+        Mockito.when(announcementRepository.findAll()).thenReturn(messages);
 
         mockMvc.perform(get("http://localhost:8080/api/announcement?page=0&size=5"))
                 .andExpect(status().isOk())
@@ -88,11 +88,11 @@ public class MessageControllerTest {
 
         Mockito.when(employeeRepository.findByEmail("hydraulik")).thenReturn(employee);
 
-        NewAnnouncement newAnnouncement = new NewAnnouncement("SampleTitle", "SampleContent");
+        NewAnnouncementDTO newAnnouncementDTO = new NewAnnouncementDTO("SampleTitle", "SampleContent");
 
         mockMvc.perform(post("http://localhost:8080/api/announcement")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newAnnouncement)))
+                .content(objectMapper.writeValueAsString(newAnnouncementDTO)))
                 .andExpect(status().isOk());
 
     }

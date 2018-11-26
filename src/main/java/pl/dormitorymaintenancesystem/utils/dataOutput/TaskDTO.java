@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class RequestDTO implements Comparable<RequestDTO> {
+public class TaskDTO implements Comparable<TaskDTO> {
 
     private Long id;
 
@@ -24,7 +24,7 @@ public class RequestDTO implements Comparable<RequestDTO> {
 
     private String assignedTo;
 
-    public RequestDTO(Long id, String title, String content, LocalDateTime time, String comment, String categoryName, String status, String assignedTo) {
+    public TaskDTO(Long id, String title, String content, LocalDateTime time, String comment, String categoryName, String status, String assignedTo) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -36,7 +36,7 @@ public class RequestDTO implements Comparable<RequestDTO> {
     }
 
     @Override
-    public int compareTo(RequestDTO o) {
+    public int compareTo(TaskDTO o) {
         return this.time.compareTo(o.time);
     }
 }

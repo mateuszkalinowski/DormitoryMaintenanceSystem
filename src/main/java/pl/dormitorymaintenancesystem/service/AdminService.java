@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.dormitorymaintenancesystem.model.users.Administrator;
 import pl.dormitorymaintenancesystem.repositories.AdministratorRepository;
-import pl.dormitorymaintenancesystem.utils.dataInput.AdminInfo;
+import pl.dormitorymaintenancesystem.utils.dataInput.AdminInfoDTO;
 
 import javax.transaction.Transactional;
 
@@ -18,7 +18,7 @@ public class AdminService {
     @Autowired
     private AdministratorRepository administratorRepository;
 
-    public ResponseEntity updateAdminInfo(AdminInfo adminInfo) {
+    public ResponseEntity updateAdminInfo(AdminInfoDTO adminInfoDTO) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentEmail = authentication.getName();
@@ -26,11 +26,11 @@ public class AdminService {
             if (admin == null)
                 return ResponseEntity.badRequest().build();
 
-            if(adminInfo.getContactEmail().length()<255 && adminInfo.getPhone().length()<255 && adminInfo.getFirstname().length()<32 && adminInfo.getLastname().length()<64) {
-                admin.setContactEmail(adminInfo.getContactEmail());
-                admin.setPhoneNumber(adminInfo.getPhone());
-                admin.setFirstName(adminInfo.getFirstname());
-                admin.setLastName(adminInfo.getLastname());
+            if(adminInfoDTO.getContactEmail().length()<255 && adminInfoDTO.getPhone().length()<255 && adminInfoDTO.getFirstname().length()<32 && adminInfoDTO.getLastname().length()<64) {
+                admin.setContactEmail(adminInfoDTO.getContactEmail());
+                admin.setPhoneNumber(adminInfoDTO.getPhone());
+                admin.setFirstName(adminInfoDTO.getFirstname());
+                admin.setLastName(adminInfoDTO.getLastname());
                 administratorRepository.save(admin);
                 return ResponseEntity.ok().build();
             }

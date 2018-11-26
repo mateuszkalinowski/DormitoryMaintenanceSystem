@@ -37,7 +37,7 @@ public class DevProfileTestData implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private MessageRepository messageRepository;
+    private AnnouncementRepository announcementRepository;
     @Autowired
     private RoomRepository roomRepository;
     @Autowired
@@ -86,7 +86,7 @@ public class DevProfileTestData implements CommandLineRunner {
         task.setInhabitant(user);
         task.setComment("");
         task.setTimeStamp(LocalDateTime.now());
-        task.setStatus(TaskStatusEnum.REQUEST_WAITING);
+        task.setStatus(TaskStatusEnum.TASK_WAITING);
         taskRepository.save(task);
 
         Administrator administrator = new Administrator("admin@local",passwordEncoder.encode("password"),"Admin","Admiński",new UserRole(UserRoleEnum.ADMIN));

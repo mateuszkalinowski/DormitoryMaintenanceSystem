@@ -3,11 +3,11 @@ package pl.dormitorymaintenancesystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.dormitorymaintenancesystem.enumTranslation.RequestStatusTranslation;
+import pl.dormitorymaintenancesystem.enumTranslation.TaskStatusTranslation;
 import pl.dormitorymaintenancesystem.model.Task;
 import pl.dormitorymaintenancesystem.repositories.TaskRepository;
 import pl.dormitorymaintenancesystem.utils.Page;
-import pl.dormitorymaintenancesystem.utils.dataOutput.RequestDTO;
+import pl.dormitorymaintenancesystem.utils.dataOutput.TaskDTO;
 
 import javax.transaction.Transactional;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +28,7 @@ public class AdminTaskService {
             if (type.equals("ALL"))
                 taskList = taskRepository.findAll();
 
-            List<RequestDTO> requestDTOList = new ArrayList<>();
+            List<TaskDTO> taskDTOList = new ArrayList<>();
 
             for (Task task : taskList) {
                 String assignedTo = "";
@@ -38,10 +38,10 @@ public class AdminTaskService {
                         assignedTo += " (" + task.getWorker().getContactEmail() + ")";
                     }
                 }
-                requestDTOList.add(new RequestDTO(task.getId(), task.getTitle(), task.getContent(), task.getTimeStamp(), task.getComment(), task.getCategory().getCategory(), task.getStatus().name(), assignedTo));
+                taskDTOList.add(new TaskDTO(task.getId(), task.getTitle(), task.getContent(), task.getTimeStamp(), task.getComment(), task.getCategory().getCategory(), task.getStatus().name(), assignedTo));
             }
-            requestDTOList.sort((o1, o2) -> o2.getTime().compareTo(o1.getTime()));
-            return ResponseEntity.ok().body(Page.createPage(page, size, requestDTOList));
+            taskDTOList.sort((o1, o2) -> o2.getTime().compareTo(o1.getTime()));
+            return ResponseEntity.ok().body(Page.createPage(page, size, taskDTOList));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -60,7 +60,7 @@ public class AdminTaskService {
             taskMap.put("comment", task.getComment());
             taskMap.put("content", task.getContent());
             taskMap.put("category", task.getCategory().getCategory());
-            taskMap.put("status", RequestStatusTranslation.translateRequestStatus(task.getStatus()));
+            taskMap.put("status", TaskStatusTranslation.translateTaskStatus(task.getStatus()));
             taskMap.put("senderFirstName", task.getInhabitant().getFirstName());
             taskMap.put("senderLastName", task.getInhabitant().getLastName());
             taskMap.put("room", task.getInhabitant().getRoom().getRoomNumber());
