@@ -29,6 +29,9 @@ import {AdminWorkerRegisterPageComponent} from './admin/admin-worker-register-pa
 import {AdminTasksListPageComponent} from './admin/admin-tasks-list-page/admin-tasks-list-page.component';
 import {AdminSettingsPageComponent} from './admin/admin-settings-page/admin-settings-page.component';
 import {AdminTaskDetailsPageComponent} from './admin/admin-task-details-page/admin-task-details-page.component';
+import {AdminNewAnnouncementPageComponent} from './admin/admin-new-announcement-page/admin-new-announcement-page.component';
+import {AdminOwnAnnouncementPageComponent} from './admin/admin-own-announcement-page/admin-own-announcement-page.component';
+import {WorkerNewsPageComponent} from './worker/worker-news-page/worker-news-page.component';
 
 const routes: Routes = [
   {path: '', component: LogInComponent, canActivate: [AppEntranceGuardService]},
@@ -53,7 +56,8 @@ const routes: Routes = [
       {path: 'taskDetails/:id', component: WorkerTaskDetailsComponent},
       {path: 'settings', component: WorkerSettingsPageComponent},
       {path: 'newAnnouncement', component: WorkerNewAnnouncementPageComponent},
-      {path: 'myAnnouncements', component: WorkerOwnAnnouncementsPageComponent}
+      {path: 'myAnnouncements', component: WorkerOwnAnnouncementsPageComponent},
+      {path: 'news', component: WorkerNewsPageComponent}
     ]
   },
   {
@@ -65,7 +69,10 @@ const routes: Routes = [
       {path: 'workerRegister', component: AdminWorkerRegisterPageComponent},
       {path: 'tasks', component: AdminTasksListPageComponent},
       {path: 'tasks/:id', component: AdminTaskDetailsPageComponent},
-      {path: 'settings', component: AdminSettingsPageComponent}
+      {path: 'settings', component: AdminSettingsPageComponent},
+      {path: 'newAnnouncement', component: AdminNewAnnouncementPageComponent},
+      {path: 'myAnnouncements', component: AdminOwnAnnouncementPageComponent},
+
     ]
   },
 ];

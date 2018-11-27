@@ -31,7 +31,7 @@ export class WorkerAssignedTasksComponent implements OnInit {
 
   ngOnInit() {
     this.loadingFinished = false;
-    this.numberOfItemsOnPage = 8;
+    this.numberOfItemsOnPage = 3;
     this.paginationInfo = new PaginationInfo();
     this.showPage(0);
   }

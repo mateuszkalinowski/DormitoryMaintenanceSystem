@@ -50,7 +50,7 @@ export class WorkerNewAnnouncementPageComponent implements OnInit {
         this.newAnnouncement.title = '';
         this.newAnnouncement.content = '';
 
-        this.router.navigate(['/workerPage/myAnnouncements']);
+        this.router.navigate(['/adminPage/myAnnouncements']);
 
       }
     ).catch(() => {

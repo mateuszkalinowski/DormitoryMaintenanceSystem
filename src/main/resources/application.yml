@@ -9,7 +9,7 @@ spring:
 #    password:
 #    platform: h2
   datasource:
-    url: jdbc:mysql://azimuthapp.pl:3306/dmsbazodanowe?useUnicode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://193.192.62.245:3306/dmsbazodanowe?useUnicode=yes&characterEncoding=UTF-8
     username: root
     password: Very.Strong.Password
     driver-class-name: com.mysql.cj.jdbc.Driver
