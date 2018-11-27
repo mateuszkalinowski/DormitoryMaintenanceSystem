@@ -1,0 +1,51 @@
+<div class="row mt-3">
+  <div class="col-10 mx-auto text-center">
+    <h2>Aktualności i ogłoszenia:</h2>
+
+    <div class="row mt-4" *ngIf="loadingFinished === false">
+      <div class="col-2 mx-auto">
+        <div class="loader"></div>
+      </div>
+    </div>
+
+    <div class="card my-3" *ngFor="let announcement of announcements">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-3">
+          </div>
+          <div class="col-6">
+            <h5>Nadawca: {{announcement.workerFirstName}} {{announcement.workerLastName}}</h5>
+
+          </div>
+          <!--<div class="col-3 text-right">-->
+            <!--<button class="btn btn-danger" (click)="removeAnnouncement(announcement.id)">Usuń ogłoszenie</button>-->
+          <!--</div>-->
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{announcement.title}}</h4>
+        <p class="card-text">{{announcement.content}}</p>
+      </div>
+      <div class="card-footer text-muted">
+        <p>Opublikowano: {{announcement.timeStamp}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-8 mx-auto text-center">
+    <nav *ngIf="numberOfPages > 1">
+      <ul class="pagination">
+        <li *ngIf="activePage === 0" class="page-item disabled"><a class="page-link">Poprzednia</a></li>
+        <li *ngIf="activePage>0" class="page-item"><a class="page-link" (click)="showPage(activePage-1)">Poprzednia</a></li>
+        <li *ngFor="let page of paginationInfo.pagesBeforeActive" class="page-item"><a class="page-link" (click)="showPage(page)" href="#">{{page+1}}</a></li>
+        <li class="page-item active"><a class="page-link" (click)="showPage(activePage)">{{activePage+1}}</a></li>
+        <li *ngFor="let page of paginationInfo.pagesAfterActive" class="page-item"><a class="page-link" (click)="showPage(page)">{{page+1}}</a></li>
+        <li *ngIf="activePage<numberOfPages-1" class="page-item"><a class="page-link" (click)="showPage(activePage+1)">Następna</a></li>
+        <li *ngIf="activePage === numberOfPages-1" class="page-item disabled"><a class="page-link">Następna</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
