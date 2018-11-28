@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import pl.dormitorymaintenancesystem.model.Message;
+import pl.dormitorymaintenancesystem.model.Announcement;
 import pl.dormitorymaintenancesystem.model.users.Administrator;
 import pl.dormitorymaintenancesystem.model.users.Employee;
 import pl.dormitorymaintenancesystem.repositories.AdministratorRepository;
@@ -40,13 +40,13 @@ public class AnnouncementService {
         if(size==0)
             return ResponseEntity.badRequest().build();
 
-        List<Message> messageList = announcementRepository.findAll();
+        List<Announcement> announcementList = announcementRepository.findAll();
 
         List<AnnouncementDTO> announcementDTOList = new ArrayList<>();
 
 
-        for(Message message : messageList) {
-            AnnouncementDTO announcementDTO = new AnnouncementDTO(message.getId().toString(),message.getTitle(), message.getContent(), message.getTimeStamp(), message.getSender().getEmail(), message.getSender().getFirstName(), message.getSender().getLastName());
+        for(Announcement announcement : announcementList) {
+            AnnouncementDTO announcementDTO = new AnnouncementDTO(announcement.getId().toString(), announcement.getTitle(), announcement.getContent(), announcement.getTimeStamp(), announcement.getSender().getEmail(), announcement.getSender().getFirstName(), announcement.getSender().getLastName());
             announcementDTOList.add(announcementDTO);
         }
 
@@ -64,8 +64,8 @@ public class AnnouncementService {
                 return ResponseEntity.badRequest().build();
             if(newAnnouncementDTO.getTitle().equals("") || newAnnouncementDTO.getContent().equals(""))
                 return ResponseEntity.badRequest().build();
-            Message message = new Message(newAnnouncementDTO.getTitle(), newAnnouncementDTO.getContent(),employee);
-            announcementRepository.save(message);
+            Announcement announcement = new Announcement(newAnnouncementDTO.getTitle(), newAnnouncementDTO.getContent(),employee);
+            announcementRepository.save(announcement);
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
@@ -84,15 +84,15 @@ public class AnnouncementService {
 
             List<HashMap<String,Object>> announcementsList = new ArrayList<>();
 
-            List<Message> messages = employee.getMessageList();
-            messages.sort((o1, o2) -> o2.getTimeStamp().compareTo(o1.getTimeStamp()));
+            List<Announcement> announcements = employee.getAnnouncementList();
+            announcements.sort((o1, o2) -> o2.getTimeStamp().compareTo(o1.getTimeStamp()));
 
-            for(Message message : messages) {
+            for(Announcement announcement : announcements) {
                 HashMap<String,Object> element = new HashMap<>();
-                element.put("id",message.getId());
-                element.put("title",message.getTitle());
-                element.put("content",message.getContent());
-                element.put("timeStamp", message.getTimeStamp().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy")));
+                element.put("id", announcement.getId());
+                element.put("title", announcement.getTitle());
+                element.put("content", announcement.getContent());
+                element.put("timeStamp", announcement.getTimeStamp().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy")));
                 announcementsList.add(element);
             }
 
@@ -113,9 +113,9 @@ public class AnnouncementService {
 
             boolean deleted = false;
 
-            for(int i = employee.getMessageList().size()-1; i >= 0; i--) {
-                if(employee.getMessageList().get(i).getId().equals(id)) {
-                    employee.getMessageList().remove(i);
+            for(int i = employee.getAnnouncementList().size()-1; i >= 0; i--) {
+                if(employee.getAnnouncementList().get(i).getId().equals(id)) {
+                    employee.getAnnouncementList().remove(i);
                     deleted = true;
                     break;
                 }

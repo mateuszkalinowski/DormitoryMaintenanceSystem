@@ -12,7 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.dormitorymaintenancesystem.model.Message;
+import pl.dormitorymaintenancesystem.model.Announcement;
 import pl.dormitorymaintenancesystem.model.users.Employee;
 import pl.dormitorymaintenancesystem.repositories.EmployeeRepository;
 import pl.dormitorymaintenancesystem.repositories.AnnouncementRepository;
@@ -61,18 +61,18 @@ public class AnnouncementControllerTest {
         employee.setFirstName("Jan");
         employee.setLastName("Kowalski");
 
-        Message message = new Message();
-        message.setId(0L);
-        message.setTitle("Sample Title");
-        message.setContent("Sample Content");
-        message.setSender(employee);
-        message.setTimeStamp(LocalDateTime.now());
+        Announcement announcement = new Announcement();
+        announcement.setId(0L);
+        announcement.setTitle("Sample Title");
+        announcement.setContent("Sample Content");
+        announcement.setSender(employee);
+        announcement.setTimeStamp(LocalDateTime.now());
 
-        ArrayList<Message> messages = new ArrayList<>();
-        messages.add(message);
+        ArrayList<Announcement> announcements = new ArrayList<>();
+        announcements.add(announcement);
 
 
-        Mockito.when(announcementRepository.findAll()).thenReturn(messages);
+        Mockito.when(announcementRepository.findAll()).thenReturn(announcements);
 
         mockMvc.perform(get("http://localhost:8080/api/announcement?page=0&size=5"))
                 .andExpect(status().isOk())

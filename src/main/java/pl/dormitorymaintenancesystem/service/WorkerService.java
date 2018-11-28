@@ -11,12 +11,15 @@ import pl.dormitorymaintenancesystem.enums.UserRoleEnum;
 import pl.dormitorymaintenancesystem.enums.UserStatusEnum;
 import pl.dormitorymaintenancesystem.model.Category;
 import pl.dormitorymaintenancesystem.model.UserRole;
+import pl.dormitorymaintenancesystem.model.users.User;
 import pl.dormitorymaintenancesystem.model.users.Worker;
 import pl.dormitorymaintenancesystem.repositories.CategoryRepository;
+import pl.dormitorymaintenancesystem.repositories.UserRepository;
 import pl.dormitorymaintenancesystem.repositories.WorkerRepository;
 import pl.dormitorymaintenancesystem.utils.Page;
 import pl.dormitorymaintenancesystem.utils.dataInput.NewWorkerDataDTO;
 import pl.dormitorymaintenancesystem.utils.dataInput.WorkerInfoDTO;
+import pl.dormitorymaintenancesystem.utils.dataOutput.MessageDTO;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -29,6 +32,9 @@ public class WorkerService {
 
     @Autowired
     private WorkerRepository workerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -63,6 +69,10 @@ public class WorkerService {
             if (newWorkerDataDTO.getFirstName().equals("") || newWorkerDataDTO.getLastName().equals("") || newWorkerDataDTO.getEmail().equals("") || newWorkerDataDTO.getCategories().length == 0 || newWorkerDataDTO.getPassword().equals("")) {
                 return ResponseEntity.badRequest().build();
             }
+
+            if(userRepository.findByEmail(newWorkerDataDTO.getEmail())!=null)
+                return ResponseEntity.badRequest().body(new MessageDTO("Wybrany adres e-mail jest już używany"));
+
             Worker worker = new Worker(newWorkerDataDTO.getEmail(),passwordEncoder.encode(newWorkerDataDTO.getPassword()), newWorkerDataDTO.getFirstName(), newWorkerDataDTO.getLastName(),new UserRole(UserRoleEnum.WORKER),"");
             worker.setUserStatus(UserStatusEnum.ACCEPTED);
             for(String newCategory: newWorkerDataDTO.getCategories()) {
@@ -77,7 +87,7 @@ public class WorkerService {
             workerRepository.save(worker);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Wystąpił nieznany bład dodawania pracownika");
         }
 
     }

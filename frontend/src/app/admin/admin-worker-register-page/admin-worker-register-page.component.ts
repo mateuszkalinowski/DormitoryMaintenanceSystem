@@ -50,11 +50,11 @@ export class AdminWorkerRegisterPageComponent implements OnInit {
         this.status = true;
       }
     ).catch(
-      () => {
-        this.message = 'Wystąpił nieznany błąd przy próbie dodania pracownika';
+      data => {
+        this.message = data.message;
         this.status = false;
       }
-    )
+    );
 
   }
 

@@ -95,5 +95,21 @@ public class DevProfileTestData implements CommandLineRunner {
         administrator.setPhoneNumber("785-987-364");
         administratorRepository.save(administrator);
 
+        Announcement adminAnnouncement = new Announcement();
+        adminAnnouncement.setTitle("Brak dostępu do systemu");
+        adminAnnouncement.setContent("Uwaga: 30 listopada w godzinach 10-12 nie będzie możliwe zalogowanie się do systemu" +
+                "z powodu przeprowadzanych prac konserwacyjnych.");
+        adminAnnouncement.setTimeStamp(LocalDateTime.now());
+        adminAnnouncement.setSender(administrator);
+        announcementRepository.save(adminAnnouncement);
+
+        Announcement workerAnnouncement = new Announcement();
+        workerAnnouncement.setTitle("Brak ciepłej wody");
+        workerAnnouncement.setContent("Uwaga. Z powodu awarii węzła ciepłownicznego brak ciepłej wody w kranach utrzyma" +
+                "się jeszcze prawdopodobnie przez około 18 godzin.");
+        workerAnnouncement.setTimeStamp(LocalDateTime.now());
+        workerAnnouncement.setSender(worker);
+        announcementRepository.save(workerAnnouncement);
+
     }
 }

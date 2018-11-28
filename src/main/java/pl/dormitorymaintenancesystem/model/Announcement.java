@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import pl.dormitorymaintenancesystem.model.users.Employee;
-import pl.dormitorymaintenancesystem.model.users.Worker;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-public class Message implements Serializable, Comparable<Message> {
+public class Announcement implements Serializable, Comparable<Announcement> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +32,11 @@ public class Message implements Serializable, Comparable<Message> {
     private Employee sender;
 
     @Override
-    public int compareTo(Message o) {
+    public int compareTo(Announcement o) {
         return this.timeStamp.compareTo(o.timeStamp);
     }
 
-    public Message(String title, String content, Employee sender) {
+    public Announcement(String title, String content, Employee sender) {
         this.title = title;
         this.content = content;
         this.sender = sender;

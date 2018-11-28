@@ -3,7 +3,7 @@ package pl.dormitorymaintenancesystem.model.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.dormitorymaintenancesystem.model.Message;
+import pl.dormitorymaintenancesystem.model.Announcement;
 import pl.dormitorymaintenancesystem.model.UserRole;
 
 import javax.persistence.*;
@@ -25,5 +25,5 @@ public class Employee extends User {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
-    List<Message> messageList = new ArrayList<>();
+    List<Announcement> announcementList = new ArrayList<>();
 }

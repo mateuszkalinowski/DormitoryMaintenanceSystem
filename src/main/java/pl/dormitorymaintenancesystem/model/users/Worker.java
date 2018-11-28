@@ -1,10 +1,8 @@
 package pl.dormitorymaintenancesystem.model.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.dormitorymaintenancesystem.model.Category;
-import pl.dormitorymaintenancesystem.model.Message;
 import pl.dormitorymaintenancesystem.model.Task;
 import pl.dormitorymaintenancesystem.model.UserRole;
 

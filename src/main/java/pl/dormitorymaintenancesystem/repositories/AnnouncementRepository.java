@@ -1,7 +1,7 @@
 package pl.dormitorymaintenancesystem.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.dormitorymaintenancesystem.model.Message;
+import pl.dormitorymaintenancesystem.model.Announcement;
 
-public interface AnnouncementRepository extends JpaRepository<Message, Long> {
+public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
 }
