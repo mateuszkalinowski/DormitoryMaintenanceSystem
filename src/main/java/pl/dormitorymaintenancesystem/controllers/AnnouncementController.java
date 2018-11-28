@@ -3,6 +3,7 @@ package pl.dormitorymaintenancesystem.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.dormitorymaintenancesystem.service.AnnouncementService;
 import pl.dormitorymaintenancesystem.utils.dataInput.NewAnnouncementDTO;
@@ -38,6 +39,7 @@ public class AnnouncementController {
     }
 
     @DeleteMapping(value = "/asAdmin/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity removeAnnouncementByIdAsAdmin(@PathVariable Long id) {
         return announcementService.removeAnnouncementByIdAsAdmin(id);
     }
